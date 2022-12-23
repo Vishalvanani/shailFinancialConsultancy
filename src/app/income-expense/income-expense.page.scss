@@ -1,0 +1,23 @@
+.back-icon {
+    width: 35px;
+    height: 35px;
+    margin-top: 7px;
+    margin-left: 10px;
+    color: #757575 !important;
+}
+
+.main-title {
+    font-family: "Roboto Medium";
+    width: 70%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #000 !important;
+    position: absolute;
+    transform: translate(-50%, -50%) !important;
+    left: 50% !important;
+    top: 50% !important;
+    margin: 0px !important;
+    padding: 0px;
+    text-align: center;
+}

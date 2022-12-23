@@ -2,27 +2,23 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+        <ion-list id="inbox-list" style="padding: 0px !important;border-bottom: 0px !important;">
+          <!-- <img src="../assets/icon.png" style="width: 29%;"> -->
+          <h2 class="story-main-title">Welcome Vishal Vanani</h2>
+          <h4 class="story-sub-title"></h4>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+            <ion-item (click)="selectIndex(p)" routerDirection="root" 
+              lines="none" detail="false" [class.selected]="alertService.selectedIndex == i">
+              <ion-icon [name]="p.icon" style="width: 24px;margin-right: 25px;"></ion-icon>
+              <ion-label class="side-menu-title">{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
-
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
       </ion-content>
+      <ion-footer>
+        <p style="float: right;margin-right: 15px;">App Version:- v1.0.1</p>
+      </ion-footer>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>

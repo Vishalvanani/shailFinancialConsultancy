@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "incomeExpense",
+	"appId": "com.shallfinancialconsultancy.app",
+	"appName": "Shall Financial Consultancy",
 	"webDir": "www",
 	"bundledWebRuntime": false
 }
