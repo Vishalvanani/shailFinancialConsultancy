@@ -28,8 +28,20 @@ ion-menu-button {
 }
 
 .main-card {
-  padding: 11px;
+  padding: 10px;
   height: 100%;
-  background: #284299;color: #FFFFFF;
-  margin: 10px 0px;
+  background: #284299;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+  min-height: 90px;
+  ion-icon {
+    color: #FFFFFF;
+    font-size: 30px;
+  }
+  p {
+    font-size: 18px;
+    margin-bottom: 0px;
+    position: absolute;
+    bottom: 15px;
+  }
 }

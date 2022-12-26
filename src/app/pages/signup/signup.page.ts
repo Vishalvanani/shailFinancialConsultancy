@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-signup',
@@ -8,13 +7,9 @@ import { NavController } from '@ionic/angular';
 })
 export class SignupPage implements OnInit {
 
-  constructor(private navCtrl: NavController) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  gotoBack() {
-    this.navCtrl.pop();
   }
 
 

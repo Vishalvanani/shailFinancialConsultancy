@@ -24,13 +24,11 @@ export class CalculatorPage implements OnInit {
     },
   ];
 
-  constructor(private navCtrl: NavController, private router: Router) { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
-  }
-
-  gotoBack() {
-    this.navCtrl.pop();
   }
 
   openPage(item: any) {
