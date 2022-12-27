@@ -1,0 +1,32 @@
+.course-card {
+    position: relative !important;
+    overflow-y: scroll !important;
+    box-shadow: none !important;
+    border-radius: 0px;
+    margin: 0px;
+    height: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-title {
+    font-size: 22px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: 30px !important;
+    letter-spacing: 0.15000000596046448px !important;
+    text-align: left !important;
+    color: #000;
+    font-family: "Roboto Medium";
+}
+
+.course-desc {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 26px;
+    letter-spacing: 0.15px;
+    color: #000;
+    text-align: justify;
+}

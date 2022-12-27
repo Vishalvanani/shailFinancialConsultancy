@@ -8,4 +8,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-card *ngFor="let course of courses" (click)="openCourse(course)">
+    <ion-card-header>
+      <ion-card-title>{{course.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>{{course.desc}}</ion-card-content>
+  </ion-card>
 </ion-content>

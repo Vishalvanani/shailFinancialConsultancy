@@ -42,7 +42,12 @@ const routes: Routes = [
   {
     path: 'insurance-calculator',
     loadChildren: () => import('./pages/insurance-calculator/insurance-calculator.module').then( m => m.InsuranceCalculatorPageModule)
+  },
+  {
+    path: 'course-details',
+    loadChildren: () => import('./pages/course-details/course-details.module').then( m => m.CourseDetailsPageModule)
   }
+
 
 
 
