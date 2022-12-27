@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModel()">
+        <ion-icon slot="end" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Add record</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment value="income">
+      <ion-segment-button value="income">
+        <ion-label>Income</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="expence">
+        <ion-label>Expence</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-select placeholder="Category">
+      <ion-select-option value="Food">Food</ion-select-option>
+      <ion-select-option value="Bike">Bike</ion-select-option>
+      <ion-select-option value="Clothing">Clothing</ion-select-option>
+      <ion-select-option value="Household">Household</ion-select-option>
+      <ion-select-option value="Personal">Personal care</ion-select-option>
+      <ion-select-option value="Electronics">Electronics</ion-select-option>
+      <ion-select-option value="Entertainment">Entertainment</ion-select-option>
+      <ion-select-option value="Education">Education</ion-select-option>
+      <ion-select-option value="Health">Health</ion-select-option>
+      <ion-select-option value="Fitness">Fitness</ion-select-option>
+      <ion-select-option value="Kids">Kids</ion-select-option>
+      <ion-select-option value="Gift">Gift</ion-select-option>
+      <ion-select-option value="Investments">Investments</ion-select-option>
+      <ion-select-option value="Travel">Travel</ion-select-option>
+      <ion-select-option value="Grocery">Grocery</ion-select-option>
+      <ion-select-option value="Shopping">Shopping</ion-select-option>
+      <ion-select-option value="EMI">EMI</ion-select-option>
+      <ion-select-option value="Stationary">Stationary</ion-select-option>
+      <ion-select-option value="Rent">Rent</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+<ion-item>
+  <ion-label position="stacked">Amount</ion-label>
+  <ion-input type="numer" placeholder="Enter amount"></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label position="stacked">Note</ion-label>
+  <ion-textarea rows="4" placeholder="Describe here"></ion-textarea>
+</ion-item>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="closeModel()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

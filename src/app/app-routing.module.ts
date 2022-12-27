@@ -42,6 +42,10 @@ const routes: Routes = [
   {
     path: 'insurance-calculator',
     loadChildren: () => import('./pages/insurance-calculator/insurance-calculator.module').then( m => m.InsuranceCalculatorPageModule)
+  },
+  {
+    path: 'smart-form',
+    loadChildren: () => import('./pages/smart-form/smart-form.module').then( m => m.SmartFormPageModule)
   }
 
 
