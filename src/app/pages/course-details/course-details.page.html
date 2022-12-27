@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="main-title">Courses Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="course-card" *ngIf="courseData">
+    <ion-card-header>
+      <ion-card-title class="course-title">{{courseData.title}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content class="course-desc" [innerHTML]="courseData.desc">
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>
