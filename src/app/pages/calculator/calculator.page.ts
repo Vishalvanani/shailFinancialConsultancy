@@ -32,6 +32,7 @@ export class CalculatorPage implements OnInit {
   }
 
   openPage(item: any) {
+    console.log('item: ', item);
     this.router.navigateByUrl(item.route)
   }
 }

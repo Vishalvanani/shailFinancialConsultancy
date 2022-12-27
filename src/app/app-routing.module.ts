@@ -30,7 +30,22 @@ const routes: Routes = [
   {
     path: 'appointment-booking',
     loadChildren: () => import('./pages/appointment-booking/appointment-booking.module').then( m => m.AppointmentBookingPageModule)
+  },
+  {
+    path: 'sip-calculator',
+    loadChildren: () => import('./pages/sip-calculator/sip-calculator.module').then( m => m.SipCalculatorPageModule)
+  },
+  {
+    path: 'loan-calculator',
+    loadChildren: () => import('./pages/loan-calculator/loan-calculator.module').then( m => m.LoanCalculatorPageModule)
+  },
+  {
+    path: 'insurance-calculator',
+    loadChildren: () => import('./pages/insurance-calculator/insurance-calculator.module').then( m => m.InsuranceCalculatorPageModule)
   }
+
+
+
 ];
 
 @NgModule({

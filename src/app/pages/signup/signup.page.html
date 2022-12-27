@@ -3,9 +3,46 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title class="main-title">Signup</ion-title>
+    <ion-title class="main-title">{{isSignup ? 'Signup' : 'Login'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<!-- For Signup -->
+<ion-content class="vertical_centr signup-content" *ngIf="isSignup">
+  <div class="container">
+    <label for="uname" style="color: black !important;">Name</label>
+    <input type="text" class="input-txt" placeholder="Please enter your name" [(ngModel)]="account.name" required>
+
+    <label for="psw" style="color: black !important;">Email</label>
+    <input type="email" class="input-txt" placeholder="Please enter your email" [(ngModel)]="account.email" required>
+
+    <label for="psw" style="color: black !important;">Mobile</label>
+    <input type="number" class="input-txt" placeholder="Please enter your mobile number" [(ngModel)]="account.mobile"
+      required>
+
+    <label for="psw" style="color: black !important;">Password</label>
+    <input type="password" class="input-txt" placeholder="Please enter password" [(ngModel)]="account.password"
+      required>
+
+    <button ion-button class="loginBtn" (click)="checkValidation()">Signup</button>
+    <button ion-button class="loginBtn" (click)="signIn()">Signin</button>
+  </div>
+
+</ion-content>
+
+<!-- For Login -->
+<ion-content class="vertical_centr signup-content" *ngIf="!isSignup">
+  <div class="container">
+
+    <label for="psw" style="color: black !important;">Email</label>
+    <input type="email" class="input-txt" placeholder="Please enter your email" [(ngModel)]="signInObj.email" required>
+
+    <label for="psw" style="color: black !important;">Password</label>
+    <input type="password" class="input-txt" placeholder="Please enter password" [(ngModel)]="signInObj.password"
+      required>
+
+    <button ion-button class="loginBtn" (click)="doLogin()">Login</button>
+    <button ion-button class="loginBtn" (click)="openSignupUI()">Signup</button>
+  </div>
+
 </ion-content>

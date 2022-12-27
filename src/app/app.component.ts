@@ -70,6 +70,32 @@ export class AppComponent {
     }
   }
 
+  toDataUrl(url: any, callback: any) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+}
+
   selectIndex(p: any) {
+    console.log('p: ', p);
+    if(p.url == "/folder/download") {
+      this.toDataUrl("https://www.africau.edu/images/default/sample.pdf", (base64: any) => {
+        const downloadPDF = (href: any) => {
+          const downloadLink = document.createElement("a");
+          downloadLink.href = href;
+          downloadLink.download = "fileName.pdf";
+          downloadLink.click();
+        };
+        downloadPDF(base64);
+      })
+    }
   }
 }
