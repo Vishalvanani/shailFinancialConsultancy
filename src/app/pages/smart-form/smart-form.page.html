@@ -8,7 +8,7 @@
     <ion-title>Add record</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment value="income">
+    <ion-segment value="income" [(ngModel)]="type">
       <ion-segment-button value="income">
         <ion-label>Income</ion-label>
       </ion-segment-button>
@@ -21,7 +21,7 @@
 
 <ion-content>
   <ion-item>
-    <ion-select placeholder="Category">
+    <ion-select placeholder="Category" [(ngModel)]="category">
       <ion-select-option value="Food">Food</ion-select-option>
       <ion-select-option value="Bike">Bike</ion-select-option>
       <ion-select-option value="Clothing">Clothing</ion-select-option>
@@ -46,16 +46,16 @@
 
 <ion-item>
   <ion-label position="stacked">Amount</ion-label>
-  <ion-input type="numer" placeholder="Enter amount"></ion-input>
+  <ion-input type="numer" placeholder="Enter amount" [(ngModel)]="amount"></ion-input>
 </ion-item>
 
 <ion-item>
   <ion-label position="stacked">Note</ion-label>
-  <ion-textarea rows="4" placeholder="Describe here"></ion-textarea>
+  <ion-textarea rows="4" placeholder="Describe here" [(ngModel)]="note"></ion-textarea>
 </ion-item>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="closeModel()">
+    <ion-fab-button (click)="submitModel()">
       <ion-icon name="checkmark"></ion-icon>
     </ion-fab-button>
   </ion-fab>
