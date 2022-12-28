@@ -9,18 +9,18 @@
 
 <ion-content class="vertical_centr signup-content">
   <div class="container">
-    <label for="uname" style="color: black !important;">Name</label>
+    <label for="uname">Name</label>
     <input type="text" class="input-txt" placeholder="Please enter your name" [(ngModel)]="inquiryForm.fname" required>
 
-    <label for="psw" style="color: black !important;">Email</label>
+    <label for="psw">Email</label>
     <input type="email" class="input-txt" placeholder="Please enter your email" [(ngModel)]="inquiryForm.email"
       required>
 
-    <label for="psw" style="color: black !important;">Mobile</label>
+    <label for="psw">Mobile</label>
     <input type="number" class="input-txt" placeholder="Please enter your mobile number"
       [(ngModel)]="inquiryForm.mobile" required>
 
-    <label for="psw" style="color: black !important;">Inquiry For</label>
+    <label for="psw">Inquiry For</label>
     <textarea type="password" class="input-txt" placeholder="Please enter Reason For Inquiry"
       [(ngModel)]="inquiryForm.inquiryFor" style="height: 140px;" required></textarea>
 

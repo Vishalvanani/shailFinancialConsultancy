@@ -1,0 +1,21 @@
+ion-item {
+    --min-height: 16px;
+}
+
+.totalAmount{
+    width: 100%;
+    font-weight: 600;
+    height: 45px;
+    line-height: 35px;
+    opacity: 0.8;
+}
+.subAmount{
+    width: 100%;
+    height: 35px;
+    line-height: 25px;
+    font-size: 15px;
+    ion-icon{
+        color: green;
+        font-size: 20px;
+    }
+}

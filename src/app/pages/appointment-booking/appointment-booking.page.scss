@@ -1,6 +1,6 @@
 .input-txt {
     width: 100%;
-    padding: 12px 20px;
+    padding: 12px 10px;
     margin: 8px 0px 16px;
     display: inline-block;
     border: 1px solid #304863;
@@ -45,6 +45,9 @@ button:hover {
 }
 .container {
     padding: 16px;
+    label{
+        color: black !important
+    }
 }
 
 span.psw {
