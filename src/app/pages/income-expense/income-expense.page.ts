@@ -9,6 +9,10 @@ import { SmartFormPage } from '../smart-form/smart-form.page';
 })
 export class IncomeExpensePage implements OnInit {
   dateTime: string = '';
+  totalIncome: number = 0;
+  totalExpence: number = 0;
+  incomeArray: any = [];
+  expenceArray: any = [];
 
   constructor(
     public modalCtrl: ModalController
@@ -20,17 +24,39 @@ export class IncomeExpensePage implements OnInit {
     });
   }
 
-  async presentSmartPopup(type: string, data?: any) {
+  async presentSmartPopup(type: string, data?: any, index?: number) {
     const modal = await this.modalCtrl.create({
       component: SmartFormPage,
       componentProps: {
         'type': type,
-        'data': data
+        'data': data,
+        'index': index
       }
     });
+
     modal.onDidDismiss().then((modelData) => {
       if (modelData !== null) {
-        console.log('modelData: ', modelData);
+        if (modelData.data.data.type == 'income') {
+          if (modelData.data.mode == 'edit') {
+            this.incomeArray[modelData.data.index] = modelData.data.data
+          } else {
+            this.incomeArray.push(modelData.data.data)
+          }
+          this.totalIncome = 0;
+          for (var i in this.incomeArray) {
+            this.totalIncome += parseInt(this.incomeArray[i].amount);
+          }
+        } else {
+          if (modelData.data.mode == 'edit') {
+            this.expenceArray[modelData.data.index] = modelData.data.data
+          } else {
+            this.expenceArray.push(modelData.data.data)
+          }
+          this.totalExpence = 0;
+          for (var i in this.expenceArray) {
+            this.totalExpence += parseInt(this.expenceArray[i].amount);
+          }
+        }
       }
     });
     return await modal.present();

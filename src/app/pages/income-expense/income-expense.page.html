@@ -12,75 +12,36 @@
     <ion-label position="stacked">Date</ion-label>
     <ion-input type="date"></ion-input>
   </ion-item>
+  
   <ion-item class="ion-no-padding" style="border-top: 2px solid #999;">
     <ion-row class="totalAmount">
       <ion-col size="8" style="padding-left:15px">Total Income</ion-col>
-      <ion-col size="4" class="ion-text-end">13000</ion-col>
-    </ion-row>
-  </ion-item>
-  <ion-item class="ion-no-padding">
-    <ion-row class="subAmount">
-      <ion-col size="8" style="padding-left:15px">Income 1</ion-col>
-      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit')"></ion-icon></ion-col>
-      <ion-col size="3" class="ion-text-end">2000</ion-col>
-    </ion-row>
-  </ion-item>
-  <ion-item class="ion-no-padding">
-    <ion-row class="subAmount">
-      <ion-col size="8" style="padding-left:15px">Income 2</ion-col>
-      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit')"></ion-icon></ion-col>
-      <ion-col size="3" class="ion-text-end">5000</ion-col>
-    </ion-row>
-  </ion-item>
-  <ion-item class="ion-no-padding">
-    <ion-row class="subAmount">
-      <ion-col size="8" style="padding-left:15px">Income 4</ion-col>
-      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit')"></ion-icon></ion-col>
-      <ion-col size="3" class="ion-text-end">4000</ion-col>
-    </ion-row>
-  </ion-item>
-  <ion-item class="ion-no-padding">
-    <ion-row class="subAmount">
-      <ion-col size="8" style="padding-left:15px">Income 4</ion-col>
-      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit')"></ion-icon></ion-col>
-      <ion-col size="3" class="ion-text-end">2000</ion-col>
-    </ion-row>
-  </ion-item>
-  <ion-item class="ion-no-padding" style="border-top: 2px solid #999;">
-    <ion-row class="totalAmount">
-      <ion-col size="8" style="padding-left:15px">Total Expence</ion-col>
-      <ion-col size="4" class="ion-text-end">7000</ion-col>
-    </ion-row>
-  </ion-item>
-  <ion-item class="ion-no-padding">
-    <ion-row class="subAmount">
-      <ion-col size="8" style="padding-left:15px">Expence 1</ion-col>
-      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit')"></ion-icon></ion-col>
-      <ion-col size="3" class="ion-text-end">2000</ion-col>
-    </ion-row>
-  </ion-item>
-  <ion-item class="ion-no-padding">
-    <ion-row class="subAmount">
-      <ion-col size="8" style="padding-left:15px">Expence 2</ion-col>
-      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit')"></ion-icon></ion-col>
-      <ion-col size="3" class="ion-text-end">1000</ion-col>
-    </ion-row>
-  </ion-item>
-  <ion-item class="ion-no-padding">
-    <ion-row class="subAmount">
-      <ion-col size="8" style="padding-left:15px">Expence 3</ion-col>
-      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit')"></ion-icon></ion-col>
-      <ion-col size="3" class="ion-text-end">3000</ion-col>
-    </ion-row>
-  </ion-item>
-  <ion-item class="ion-no-padding">
-    <ion-row class="subAmount">
-      <ion-col size="8" style="padding-left:15px">Expence 4</ion-col>
-      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit')"></ion-icon></ion-col>
-      <ion-col size="3" class="ion-text-end">1000</ion-col>
+      <ion-col size="4" class="ion-text-end">{{ totalIncome }}</ion-col>
     </ion-row>
   </ion-item>
 
+  <ion-item class="ion-no-padding" *ngFor="let x of incomeArray; let i = index">
+    <ion-row class="subAmount">
+      <ion-col size="8" style="padding-left:15px">{{ x.category }}</ion-col>
+      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit', x, i)"></ion-icon></ion-col>
+      <ion-col size="3" class="ion-text-end">{{ x.amount }}</ion-col>
+    </ion-row>
+  </ion-item>
+ 
+  <ion-item class="ion-no-padding" style="border-top: 2px solid #999;">
+    <ion-row class="totalAmount">
+      <ion-col size="8" style="padding-left:15px">Total Expence</ion-col>
+      <ion-col size="4" class="ion-text-end">{{ totalExpence }}</ion-col>
+    </ion-row>
+  </ion-item>
+
+  <ion-item class="ion-no-padding" *ngFor="let x of expenceArray; let i = index">
+    <ion-row class="subAmount">
+      <ion-col size="8" style="padding-left:15px">{{ x.category }}</ion-col>
+      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit', x, i)"></ion-icon></ion-col>
+      <ion-col size="3" class="ion-text-end">{{ x.amount }}</ion-col>
+    </ion-row>
+  </ion-item>
   
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button (click)="presentSmartPopup('add')">
