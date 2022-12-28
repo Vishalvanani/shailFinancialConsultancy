@@ -50,7 +50,12 @@ const routes: Routes = [
   {
     path: 'smart-form',
     loadChildren: () => import('./pages/smart-form/smart-form.module').then( m => m.SmartFormPageModule)
+  },
+  {
+    path: 'course-inquiry',
+    loadChildren: () => import('./pages/course-inquiry/course-inquiry.module').then( m => m.CourseInquiryPageModule)
   }
+
 
 
 

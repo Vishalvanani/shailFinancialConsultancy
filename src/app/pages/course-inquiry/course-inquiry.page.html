@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModel()">
+        <ion-icon slot="end" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Course Inquiry</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+  <ion-content class="vertical_centr signup-content">
+    <div class="container">
+      <label for="uname">Name</label>
+      <input type="text" class="input-txt" placeholder="Please enter your name" [(ngModel)]="inquiryForm.name" required>
+  
+      <label for="psw">Mobile</label>
+      <input type="number" class="input-txt" placeholder="Please enter your mobile number"
+        [(ngModel)]="inquiryForm.mobile" required>
+  
+      <label for="psw">Course</label>
+      <textarea type="password" class="input-txt" placeholder="Please enter Reason For Inquiry"
+        [(ngModel)]="inquiryForm.inquiryFor" style="height: 140px;" required></textarea>
+  
+      <button ion-button class="loginBtn" (click)="checkValidation()">Submit Inquiry</button>
+    </div>
+  
+</ion-content>

@@ -10,11 +10,18 @@
 <ion-content>
   <ion-card class="course-card" *ngIf="courseData">
     <ion-card-header>
-      <ion-card-title class="course-title">{{courseData.title}}</ion-card-title>
+      <ion-card-title class="course-title">{{courseData.course_title}}</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content class="course-desc" [innerHTML]="courseData.desc">
+    <ion-card-content class="course-desc">
+      <p>{{courseData.course_desc}}</p>
+
+      <p>Course Price: {{courseData.course_price}}</p>
+      <p>Course Duration: {{courseData.course_duration}}</p>
+
     </ion-card-content>
 
   </ion-card>
+
+  <ion-button type="button" (click)="createCounrseInquiry()">Inquiry</ion-button>
 </ion-content>

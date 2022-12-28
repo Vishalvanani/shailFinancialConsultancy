@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpService } from 'src/app/provider/http.service';
 
 @Component({
   selector: 'app-courses',
@@ -21,14 +22,28 @@ export class CoursesPage implements OnInit {
     },
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private httpService: HttpService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.getCoruseList();
   }
 
   openCourse(course: any) {
     console.log('course: ', course);
     this.router.navigate(['course-details'], { queryParams: { course: JSON.stringify(course) } });
+  }
+
+  getCoruseList() {
+    return new Promise((resolve, reject) => {
+      this.httpService.get("list_course_master.php").subscribe(res => {
+        console.log('res: ', res);
+        this.courses = res;
+        resolve('');
+      }, (err) => {
+        this.courses = [];
+        reject(err)
+      })
+    })
   }
 
 

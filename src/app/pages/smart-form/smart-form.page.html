@@ -21,26 +21,11 @@
 
 <ion-content>
   <ion-item>
-    <ion-select placeholder="Category" [(ngModel)]="category">
-      <ion-select-option value="Food">Food</ion-select-option>
-      <ion-select-option value="Bike">Bike</ion-select-option>
-      <ion-select-option value="Clothing">Clothing</ion-select-option>
-      <ion-select-option value="Household">Household</ion-select-option>
-      <ion-select-option value="Personal">Personal care</ion-select-option>
-      <ion-select-option value="Electronics">Electronics</ion-select-option>
-      <ion-select-option value="Entertainment">Entertainment</ion-select-option>
-      <ion-select-option value="Education">Education</ion-select-option>
-      <ion-select-option value="Health">Health</ion-select-option>
-      <ion-select-option value="Fitness">Fitness</ion-select-option>
-      <ion-select-option value="Kids">Kids</ion-select-option>
-      <ion-select-option value="Gift">Gift</ion-select-option>
-      <ion-select-option value="Investments">Investments</ion-select-option>
-      <ion-select-option value="Travel">Travel</ion-select-option>
-      <ion-select-option value="Grocery">Grocery</ion-select-option>
-      <ion-select-option value="Shopping">Shopping</ion-select-option>
-      <ion-select-option value="EMI">EMI</ion-select-option>
-      <ion-select-option value="Stationary">Stationary</ion-select-option>
-      <ion-select-option value="Rent">Rent</ion-select-option>
+    <ion-select *ngIf="type == 'income'" placeholder="Category" [(ngModel)]="category">
+      <ion-select-option *ngFor="let incomeCategory of incomeCategoryList" [value]="incomeCategory.income_id">{{incomeCategory.income_category}}</ion-select-option>
+    </ion-select>
+    <ion-select *ngIf="type == 'expence'" placeholder="Category" [(ngModel)]="category">
+      <ion-select-option *ngFor="let expenseCategory of expenseCategoryList" [value]="expenseCategory.expense_id">{{expenseCategory.expense_category}}</ion-select-option>
     </ion-select>
   </ion-item>
 
