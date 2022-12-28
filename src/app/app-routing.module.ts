@@ -54,7 +54,12 @@ const routes: Routes = [
   {
     path: 'course-inquiry',
     loadChildren: () => import('./pages/course-inquiry/course-inquiry.module').then( m => m.CourseInquiryPageModule)
+  },
+  {
+    path: 'folder/payment-info',
+    loadChildren: () => import('./pages/payment-info/payment-info.module').then( m => m.PaymentInfoPageModule)
   }
+
 
 
 

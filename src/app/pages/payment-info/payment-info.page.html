@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="main-title">Payment Info</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let paymentInfo of paymentInfoList">
+    <ion-card-header>
+      <ion-card-title>{{paymentInfo.client_name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Payment Type: {{paymentInfo.pay_type}}</p>
+      <p>Payment Amount: {{paymentInfo.pay_amount}}</p>
+      <p>Payment Date: {{paymentInfo.pay_date}}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -10,6 +10,7 @@ import { Location } from "@angular/common";
 })
 export class AppComponent {
   public appPages = [
+    { title: 'Home', url: '', icon: 'home' },
     { title: 'About Us', url: '/folder/aboutUs', icon: 'mail' },
     { title: 'Download', url: '/folder/download', icon: 'download-outline' },
     { title: 'Profile', url: '/folder/profile', icon: 'person-circle-outline' },
@@ -23,7 +24,6 @@ export class AppComponent {
     public alertService: AlertService
   ) {
     this.platform.backButton.subscribeWithPriority(10, async (res) => {
-      console.log('window.location.pathname: ', window.location.pathname);
       if (
         this._location.isCurrentPathEqualTo('/folder/home') ||
         this._location.isCurrentPathEqualTo('')
@@ -96,6 +96,33 @@ export class AppComponent {
         };
         downloadPDF(base64);
       })
+    } else if(p.url == '/folder/payment-info') {
+      this.router.navigate(['/folder/payment-info']);
+    } else if(p.url == '') {
+      this.router.navigate(['']);
     }
+
+    setTimeout(() => {
+      this.getSelectedIndex();
+    }, 1000);
+  }
+
+  getSelectedIndex() {
+    console.log('this.appPages: ', this.appPages);
+    const path = window.location.pathname.split('folder/')[1];
+    console.log('path: ', path);
+    if (path) {
+      this.alertService.selectedIndex = this.appPages.findIndex(
+        (page) => page.url.toLowerCase() === `/folder/${path.toLowerCase()}` 
+      );
+    } else {
+      this.alertService.selectedIndex = 0;
+    }
+  }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.getSelectedIndex();
+    }, 2000);
   }
 }
