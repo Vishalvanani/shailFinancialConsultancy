@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { AlertService } from 'src/app/provider/alert.service';
+import { HttpService } from 'src/app/provider/http.service';
 
 @Component({
   selector: 'app-smart-form',
@@ -12,15 +13,20 @@ export class SmartFormPage implements OnInit {
   amount: any;
   note: string = '';
   category: any;
+incomeCategoryList: any[] = [];
+expenseCategoryList: any[] = [];
   mode: any;
   index: any;
   constructor(
     public modalCtrl: ModalController,
     public alertService: AlertService,
+    private httpService: HttpService,
     public navParams: NavParams,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.fetchIncomeCategory();
+    await this.fetchExpenseCategory();
     this.mode = this.navParams.get('type')
     if (this.mode == 'edit') {
       this.type = this.navParams.get('data').type;
@@ -54,5 +60,33 @@ export class SmartFormPage implements OnInit {
       await this.modalCtrl.dismiss({ data: data, mode: this.mode, index: this.index });
       return true;
     }
+  }
+
+  // --- fetch income category
+  fetchIncomeCategory() {
+    return new Promise((resolve, reject) => {
+      this.httpService.get("list_income.php").subscribe(res => {
+        console.log('res: ', res);
+        this.incomeCategoryList = res;
+        resolve('');
+      }, (err) => {
+        this.incomeCategoryList = [];
+        reject(err)
+      })
+    })
+  }
+
+  // --- fetch expense category
+  fetchExpenseCategory() {
+    return new Promise((resolve, reject) => {
+      this.httpService.get("list_expense.php").subscribe(res => {
+        console.log('res: ', res);
+        this.expenseCategoryList = res;
+        resolve('');
+      }, (err) => {
+        this.expenseCategoryList = [];
+        reject(err)
+      })
+    })
   }
 }
