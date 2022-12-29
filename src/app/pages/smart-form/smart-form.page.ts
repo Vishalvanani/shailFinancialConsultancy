@@ -25,8 +25,10 @@ expenseCategoryList: any[] = [];
   ) { }
 
   async ngOnInit() {
+    await this.alertService.presentLoader("");
     await this.fetchIncomeCategory();
     await this.fetchExpenseCategory();
+    await this.alertService.dismissLoader();
     this.mode = this.navParams.get('type')
     if (this.mode == 'edit') {
       this.type = this.navParams.get('data').type;

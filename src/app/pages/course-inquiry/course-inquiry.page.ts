@@ -44,8 +44,12 @@ export class CourseInquiryPage implements OnInit {
       inquriy: this.inquiryForm.inquiryFor 
     }
     console.log(data);
-    await this.modalCtrl.dismiss(data);
-    return true;
+    await this.alertService.presentLoader("");
+    setTimeout(async () => {
+      await this.alertService.dismissLoader();
+      await this.modalCtrl.dismiss(data);
+      return true;
+    }, 3000);
   }
 
 }

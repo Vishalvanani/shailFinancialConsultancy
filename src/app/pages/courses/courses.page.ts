@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/provider/alert.service';
 import { HttpService } from 'src/app/provider/http.service';
 
 @Component({
@@ -22,10 +23,13 @@ export class CoursesPage implements OnInit {
     },
   ];
 
-  constructor(private router: Router, private httpService: HttpService) { }
+  constructor(private router: Router, private httpService: HttpService,
+    private alertService: AlertService) { }
 
   async ngOnInit() {
+    await this.alertService.presentLoader("");
     await this.getCoruseList();
+    await this.alertService.dismissLoader();
   }
 
   openCourse(course: any) {

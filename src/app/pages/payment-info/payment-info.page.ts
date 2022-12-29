@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/provider/alert.service';
 import { HttpService } from 'src/app/provider/http.service';
 
 @Component({
@@ -9,10 +10,12 @@ import { HttpService } from 'src/app/provider/http.service';
 export class PaymentInfoPage implements OnInit {
 
   paymentInfoList: any[] = [];
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private alertService: AlertService) { }
 
   async ngOnInit() {
+    await this.alertService.presentLoader('');
     await this.getPaymentInfo();
+    await this.alertService.dismissLoader();
   }
 
   getPaymentInfo() {
