@@ -100,6 +100,8 @@ export class AppComponent {
       this.router.navigate(['/folder/payment-info']);
     } else if(p.url == '') {
       this.router.navigate(['']);
+    } else if(p.url == '/folder/profile') {
+      this.router.navigate(['/document-upload']);
     }
 
     setTimeout(() => {

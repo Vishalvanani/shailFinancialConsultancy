@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="main-title">Document Upload</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h2 style="padding: 0px 15px;">Document Image</h2>
+  <ion-row>
+    <ion-col size="6" style="border: 1px solid #999;" *ngFor="let image of imageUrls;let i = index">
+      <img [src]="image" style="width: 100%; object-fit: cover;">
+
+      <ion-icon name="close-circle-outline" class="close-icon" (click)="removeImage(i)"></ion-icon>
+    </ion-col>
+   </ion-row>
+
+  <ion-button type="button" (click)="uploadImage()" class="centerBox">Upload Image</ion-button>
+</ion-content>

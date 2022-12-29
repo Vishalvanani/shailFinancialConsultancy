@@ -58,7 +58,12 @@ const routes: Routes = [
   {
     path: 'folder/payment-info',
     loadChildren: () => import('./pages/payment-info/payment-info.module').then( m => m.PaymentInfoPageModule)
+  },
+  {
+    path: 'document-upload',
+    loadChildren: () => import('./pages/document-upload/document-upload.module').then( m => m.DocumentUploadPageModule)
   }
+
 
 
 
