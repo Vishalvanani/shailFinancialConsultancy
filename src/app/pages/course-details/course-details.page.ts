@@ -9,17 +9,19 @@ import { CourseInquiryPage } from 'src/app/pages/course-inquiry/course-inquiry.p
   styleUrls: ['./course-details.page.scss'],
 })
 export class CourseDetailsPage implements OnInit {
-  
+
   courseData: any;
-  constructor(private route: ActivatedRoute, private modalCtrl: ModalController) {
+  constructor(
+    private route: ActivatedRoute,
+    private modalCtrl: ModalController
+  ) {
     let course: any = this.route.snapshot.queryParamMap.get('course');
-    console.log('course: ', course);
     this.courseData = typeof course === 'object' ? course : JSON.parse(course);
   }
 
   ngOnInit() {
   }
-  
+
 
   async createCounrseInquiry() {
     const modal = await this.modalCtrl.create({
@@ -27,7 +29,6 @@ export class CourseDetailsPage implements OnInit {
     });
     modal.onDidDismiss().then((modelData) => {
       if (modelData !== null) {
-        console.log('modelData: ', modelData);
       }
     });
     return await modal.present();

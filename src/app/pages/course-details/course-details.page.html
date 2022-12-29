@@ -8,20 +8,26 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="course-card" *ngIf="courseData">
+  <ion-card *ngIf="courseData">
+    <img alt="" src="https://ionicframework.com/docs/img/demos/card-media.png" />
     <ion-card-header>
-      <ion-card-title class="course-title">{{courseData.course_title}}</ion-card-title>
+      <ion-card-title>{{courseData.course_title}}</ion-card-title>
+      <ion-card-subtitle> {{courseData.course_desc}}</ion-card-subtitle>
     </ion-card-header>
-
-    <ion-card-content class="course-desc">
-      <p>{{courseData.course_desc}}</p>
-
-      <p>Course Price: {{courseData.course_price}}</p>
-      <p>Course Duration: {{courseData.course_duration}}</p>
-
+  
+    <ion-card-content>
+     <ion-row>
+      <ion-col size="6" style="border: 1px solid #999;">
+        <strong> Price:</strong> {{courseData.course_price}}
+      </ion-col>
+      <ion-col size="6" style="border: 1px solid #999;"><strong> Duration:</strong> {{courseData.course_duration}}</ion-col>
+     </ion-row>
     </ion-card-content>
-
   </ion-card>
-
-  <ion-button type="button" (click)="createCounrseInquiry()">Inquiry</ion-button>
+  
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title><ion-button type="button" (click)="createCounrseInquiry()" class="centerBox">Inquiry</ion-button></ion-title>
+  </ion-toolbar>
+</ion-footer>
