@@ -125,4 +125,8 @@ export class AppComponent {
       this.getSelectedIndex();
     }, 2000);
   }
+
+  onClick(){
+    
+  }
 }

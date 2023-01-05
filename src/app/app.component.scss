@@ -117,3 +117,20 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+.profileBtn{
+  text-transform: capitalize;
+  font-size: 12px;
+}
+.avtarImg{
+  width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 10px;
+    margin-left: 0px;
+}
+.profilebox{
+  item-native{
+    padding: 0 !important;
+  }
+}
