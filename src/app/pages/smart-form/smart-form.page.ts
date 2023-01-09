@@ -46,12 +46,16 @@ expenseCategoryList: any[] = [];
     await this.modalCtrl.dismiss(close);
   }
   async submitModel() {
-    if (!this.category) {
-      this.alertService.presentToast('Please select category')
-      return false;
-    } else if (!this.amount) {
-      this.alertService.presentToast('Please enter amount')
-      return false;
+    let errorMsg = '';
+
+    if(this.alertService.isBlank(this.category)) {
+      errorMsg = 'Please select category'
+    } else if(this.alertService.isBlank(this.amount)) {
+      errorMsg = 'Please enter amount';
+    } 
+
+    if(errorMsg) {
+      this.alertService.presentAlert(errorMsg);
     } else {
       var data = {
         category: this.category,
@@ -60,7 +64,6 @@ expenseCategoryList: any[] = [];
         note: this.note
       }
       await this.modalCtrl.dismiss({ data: data, mode: this.mode, index: this.index });
-      return true;
     }
   }
 
