@@ -12,27 +12,27 @@ export class HomePage implements OnInit {
   mainPageCategory: any[] = [
     {
       title: "Calculator",
-      icon: "calculator-outline",
+      icon: "../../assets/imgs/calculator.png",
       route: "calculator"
     },
     {
-      title: "Income/Expense Manager",
-      icon: "analytics-outline",
-      route: "income-expense"
-    },
-    {
       title: "Courses",
-      icon: "book-outline",
+      icon: "../../assets/imgs/courses.png",
       route: "courses"
     },
     {
+      title: "Income/Expense Manager",
+      icon: "../../assets/imgs/iemanager.png",
+      route: "income-expense"
+    },
+    {
       title: "Signup",
-      icon: "log-in-outline",
+      icon: "../../assets/imgs/signup.png",
       route: "signup"
     },
     {
       title: "Appointment Booking",
-      icon: "apps-outline",
+      icon: "../../assets/imgs/appointment.png",
       route: "appointment-booking"
     }
   ]
