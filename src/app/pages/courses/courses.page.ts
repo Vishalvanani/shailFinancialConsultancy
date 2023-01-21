@@ -41,7 +41,7 @@ export class CoursesPage implements OnInit {
     return new Promise((resolve, reject) => {
       this.httpService.get("list_course_master.php").subscribe(res => {
         console.log('res: ', res);
-        this.courses = res;
+        this.courses = res.items;
         resolve('');
       }, (err) => {
         this.courses = [];
