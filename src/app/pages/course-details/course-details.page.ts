@@ -23,9 +23,12 @@ export class CourseDetailsPage implements OnInit {
   }
 
 
-  async createCounrseInquiry() {
+  async createCourseInquiry() {
     const modal = await this.modalCtrl.create({
-      component: CourseInquiryPage
+      component: CourseInquiryPage,
+      componentProps: {
+        courseId: this.courseData.course_id
+      }
     });
     modal.onDidDismiss().then((modelData) => {
       if (modelData !== null) {

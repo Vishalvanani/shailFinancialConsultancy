@@ -19,43 +19,80 @@ export class HttpService {
     private http: HttpClient
     ) { }
 
-  post(url: string, data: any, isHeaderAvail?: boolean): Observable<any> {
+  // post(url: string, data: any): Promise<any> {
+  //   return new Promise((resolve, reject) => { 
+  //     let httpOptions: any = {
+  //       headers: new HttpHeaders({
+  //         'Access-Control-Allow-Origin': '*',
+  //         "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token, Accept, Authorization, X-Request-With, Access-Control-Request-Method, Access-Control-Request-Headers",
+  //         "Access-Control-Allow-Credentials" : "true",
+  //         "Access-Control-Allow-Methods" : "GET, POST, DELETE, PUT, OPTIONS, TRACE, PATCH, CONNECT",
+  //       })
+  //     }
+  //     this.http.post(`${base_URL}${url}`, data, httpOptions).subscribe(res => {
+  //       resolve(res);
+  //     }, (err) => {
+  //       console.log('err: ', err);
+  //       reject(err.error.hasOwnProperty('message') ? err.error.message : err.message);
+  //     })
+  //   })
+  // }
 
-    if (isHeaderAvail)
-      return this.http
-        .post(base_URL + url, data, {responseType: 'text'});
-    else
-      return this.http
-        .post(base_URL + url, data, {responseType: 'text'});
+
+  post(url: string, data: any): Observable<any> {
+
+    let httpOptions: any = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token, Accept, Authorization, X-Request-With, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "Access-Control-Allow-Credentials" : "true",
+        "Access-Control-Allow-Methods" : "GET, POST, DELETE, PUT, OPTIONS, TRACE, PATCH, CONNECT",
+      })
+    }
+
+    return this.http
+      .post(base_URL + url, data, httpOptions);
   }
 
-  put(url: string, data: any, isHeaderAvail?: boolean): Observable<any> {
 
-    if (isHeaderAvail)
+  put(url: string, data: any): Observable<any> {
+
+    let httpOptions: any = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
+        "Access-Control-Allow-Methods" : "GET, POST, DELETE, PUT, OPTIONS",
+      })
+    }
       return this.http
-        .put<any>(base_URL + url, data);
-    else
-      return this.http
-        .put<any>(base_URL + url, data);
+        .put<any>(base_URL + url, data, httpOptions);
   }
 
   get(url: string, isHeaderAvail?: boolean): Observable<any> {
 
-    if (isHeaderAvail)
-      return this.http
-        .get<any>(base_URL + url);
-    else
+    // let httpOptions: any = {
+    //   headers: new HttpHeaders({
+    //     'Access-Control-Allow-Origin': '*',
+    //     "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
+    //     "Access-Control-Allow-Methods" : "GET, POST, DELETE, PUT, OPTIONS",
+    //   })
+    // }
+
       return this.http
         .get<any>(base_URL + url);
   }
 
   delete(url: string, isHeaderAvail?: boolean): Observable<any> {
 
-    if (isHeaderAvail)
+    let httpOptions: any = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
+        "Access-Control-Allow-Methods" : "GET, POST, DELETE, PUT, OPTIONS",
+      })
+    }
+
       return this.http
-        .delete<any>(base_URL + url);
-    else
-      return this.http
-        .delete<any>(base_URL + url);
+        .delete<any>(base_URL + url, httpOptions);
   }
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import * as dayjs from 'dayjs';
 import { AlertService } from 'src/app/provider/alert.service';
 import { CommonService } from 'src/app/provider/common.service';
 import { HttpService } from 'src/app/provider/http.service';
@@ -39,6 +40,17 @@ export class AppointmentBookingPage {
     } else {
       console.log(this.inquiryForm);
 
+      let data = {
+        name: this.inquiryForm.name,
+        phone_number: this.inquiryForm.mobile,
+        email_address: this.inquiryForm.email,
+        message: this.inquiryForm.inquiryFor,
+        inquiry_4: this.inquiryForm.inquiryFor,
+        appointment_date: dayjs().format("YYYY-MM-DD")
+      }
+      
+      console.log('data: ', data);
+
       await this.alertService.presentLoader('');
       this.httpService.post('add_appointment.php', this.inquiryForm).subscribe(async res => {
         await this.alertService.presentToast("Appointment booking successfully");
@@ -47,12 +59,8 @@ export class AppointmentBookingPage {
       }, async (err) => {
         console.log('err: ', err);
         await this.alertService.dismissLoader();
-        await this.alertService.presentAlert(err.message);
+        await this.alertService.presentAlert(err);
       })
-
-      setTimeout(async () => {
-        await this.alertService.dismissLoader();
-      }, 5000);
     }
   }
 }

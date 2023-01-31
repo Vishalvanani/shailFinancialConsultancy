@@ -12,8 +12,8 @@
       <ion-segment-button value="income">
         <ion-label>Income</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="expence">
-        <ion-label>Expence</ion-label>
+      <ion-segment-button value="expense">
+        <ion-label>Expense</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -24,14 +24,14 @@
     <ion-select *ngIf="type == 'income'" placeholder="Category" [(ngModel)]="category">
       <ion-select-option *ngFor="let incomeCategory of incomeCategoryList" [value]="incomeCategory.income_id">{{incomeCategory.income_category}}</ion-select-option>
     </ion-select>
-    <ion-select *ngIf="type == 'expence'" placeholder="Category" [(ngModel)]="category">
+    <ion-select *ngIf="type == 'expense'" placeholder="Category" [(ngModel)]="category">
       <ion-select-option *ngFor="let expenseCategory of expenseCategoryList" [value]="expenseCategory.expense_id">{{expenseCategory.expense_category}}</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label position="stacked">Amount</ion-label>
-    <ion-input type="numer" placeholder="Enter amount" [(ngModel)]="amount"></ion-input>
+    <ion-input type="number" placeholder="Enter amount" [(ngModel)]="amount"></ion-input>
   </ion-item>
 
   <ion-item>

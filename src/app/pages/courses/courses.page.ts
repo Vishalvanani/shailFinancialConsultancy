@@ -28,7 +28,7 @@ export class CoursesPage implements OnInit {
 
   async ngOnInit() {
     await this.alertService.presentLoader("");
-    await this.getCoruseList();
+    await this.getCourseList();
     await this.alertService.dismissLoader();
   }
 
@@ -37,7 +37,7 @@ export class CoursesPage implements OnInit {
     this.router.navigate(['course-details'], { queryParams: { course: JSON.stringify(course) } });
   }
 
-  getCoruseList() {
+  getCourseList() {
     return new Promise((resolve, reject) => {
       this.httpService.get("list_course_master.php").subscribe(res => {
         console.log('res: ', res);

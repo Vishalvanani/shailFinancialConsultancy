@@ -72,7 +72,7 @@ expenseCategoryList: any[] = [];
     return new Promise((resolve, reject) => {
       this.httpService.get("list_income.php").subscribe(res => {
         console.log('res: ', res);
-        this.incomeCategoryList = res;
+        this.incomeCategoryList = res.items;
         resolve('');
       }, (err) => {
         this.incomeCategoryList = [];
@@ -86,7 +86,7 @@ expenseCategoryList: any[] = [];
     return new Promise((resolve, reject) => {
       this.httpService.get("list_expense.php").subscribe(res => {
         console.log('res: ', res);
-        this.expenseCategoryList = res;
+        this.expenseCategoryList = res.items;
         resolve('');
       }, (err) => {
         this.expenseCategoryList = [];

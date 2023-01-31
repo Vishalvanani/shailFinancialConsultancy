@@ -10,7 +10,7 @@
 <ion-content class="vertical_centr signup-content">
   <div class="container">
     <label for="uname">Name</label>
-    <input type="text" class="input-txt" placeholder="Please enter your name" [(ngModel)]="inquiryForm.fname" required>
+    <input type="text" class="input-txt" placeholder="Please enter your name" [(ngModel)]="inquiryForm.name" required>
 
     <label for="psw">Email</label>
     <input type="email" class="input-txt" placeholder="Please enter your email" [(ngModel)]="inquiryForm.email"
@@ -24,7 +24,7 @@
     <textarea type="password" class="input-txt" placeholder="Please enter Reason For Inquiry"
       [(ngModel)]="inquiryForm.inquiryFor" style="height: 140px;" required></textarea>
 
-    <button ion-button class="loginBtn" (click)="checkValidation()">Appoinment Booking</button>
+    <button ion-button class="loginBtn" (click)="checkValidation()">Appointment Booking</button>
   </div>
 
 </ion-content>

@@ -10,9 +10,9 @@ import { SmartFormPage } from '../smart-form/smart-form.page';
 export class IncomeExpensePage implements OnInit {
   dateTime: string = '';
   totalIncome: number = 0;
-  totalExpence: number = 0;
+  totalExpense: number = 0;
   incomeArray: any = [];
-  expenceArray: any = [];
+  expenseArray: any = [];
 
   constructor(
     public modalCtrl: ModalController
@@ -48,13 +48,13 @@ export class IncomeExpensePage implements OnInit {
           }
         } else {
           if (modelData.data.mode == 'edit') {
-            this.expenceArray[modelData.data.index] = modelData.data.data
+            this.expenseArray[modelData.data.index] = modelData.data.data
           } else {
-            this.expenceArray.push(modelData.data.data)
+            this.expenseArray.push(modelData.data.data)
           }
-          this.totalExpence = 0;
-          for (var i in this.expenceArray) {
-            this.totalExpence += parseInt(this.expenceArray[i].amount);
+          this.totalExpense = 0;
+          for (var i in this.expenseArray) {
+            this.totalExpense += parseInt(this.expenseArray[i].amount);
           }
         }
       }

@@ -1,1 +1,1 @@
-export const base_URL = 'https://phygitalitclinic.com/sfc/apps/';
+export const base_URL = 'https://sfc.pbctechworld.com/apps/';

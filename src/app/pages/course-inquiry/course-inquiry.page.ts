@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/provider/alert.service';
 import { HttpService } from 'src/app/provider/http.service';
+import * as dayjs from 'dayjs'
 
 @Component({
   selector: 'app-course-inquiry',
@@ -10,10 +11,11 @@ import { HttpService } from 'src/app/provider/http.service';
 })
 export class CourseInquiryPage implements OnInit {
   inquiryForm: any = {};
+  @Input() courseId: any;
   constructor(
     private modalCtrl: ModalController,
     private alertService: AlertService,
-    private httpService: HttpService
+    private httpService: HttpService,
   ) {}
 
   ngOnInit() {}
@@ -42,7 +44,9 @@ export class CourseInquiryPage implements OnInit {
     let data = {
       name: this.inquiryForm.name,
       mobile: this.inquiryForm.mobile,
-      inquriy: this.inquiryForm.inquiryFor,
+      inquiry: this.inquiryForm.inquiryFor,
+      course_id: this.courseId,
+      inq_date: dayjs().format("YYYY-MM-DD")
     };
     await this.alertService.presentLoader('');
     this.httpService.post("course_add_inquiry.php", data).subscribe(async res => {
@@ -51,7 +55,9 @@ export class CourseInquiryPage implements OnInit {
       await this.modalCtrl.dismiss(data);
       return true;
     }, async (err) => {
-      await this.modalCtrl.dismiss(data);
+      await this.alertService.dismissLoader();
+      // await this.modalCtrl.dismiss(data);
+      await this.alertService.presentAlert(err);
       return true;
     })
   }
