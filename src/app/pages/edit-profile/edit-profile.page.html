@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="main-title">Edit Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- For Update Profile -->
+<ion-content class="vertical_centr signup-content">
+  <div class="container">
+    <label for="uname" style="color: black !important;">Name</label>
+    <input type="text" class="input-txt" placeholder="Please enter your name" [(ngModel)]="account.name" required>
+
+    <label for="psw" style="color: black !important;">Email</label>
+    <input type="email" class="input-txt" placeholder="Please enter your email" [(ngModel)]="account.email" required>
+
+    <label for="psw" style="color: black !important;">Mobile</label>
+    <input type="number" class="input-txt" placeholder="Please enter your mobile number" [(ngModel)]="account.mobile"
+      required>
+
+    <!-- <label for="psw" style="color: black !important;">Password</label>
+    <input type="password" class="input-txt" placeholder="Please enter password" [(ngModel)]="account.password"
+      required> -->
+
+    <button ion-button class="loginBtn" (click)="updateProfile()">Update Profile</button>
+  </div>
+
+</ion-content>

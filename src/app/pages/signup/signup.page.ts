@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Preferences } from '@capacitor/preferences';
 import { AlertService } from 'src/app/provider/alert.service';
 import { CommonService } from 'src/app/provider/common.service';
 import { HttpService } from 'src/app/provider/http.service';
@@ -12,13 +14,31 @@ export class SignupPage implements OnInit {
   account: any = {};
   signInObj: any = {};
   isSignup: boolean = true;
+  isUserLoggedin: any;
   constructor(
     private alertService: AlertService,
+    private route: ActivatedRoute,
     private commonService: CommonService,
-    private httpService: HttpService
+    private httpService: HttpService,
+    public router: Router
   ) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+
+    let userData: any = await Preferences.get({key: "userData"})
+    if(userData && userData.value) {
+      this.commonService.userData = JSON.parse(userData.value);
+    } else {
+      this.router.navigate(['signup'], { queryParams: { isUserLoggedin: "" } })
+    }
+
+    this.isUserLoggedin = this.route.snapshot.queryParamMap.get('isUserLoggedin');
+    console.log('this.isUserLoggedin: ', this.isUserLoggedin);
+    if(!this.isUserLoggedin) {
+      console.log("30");
+      this.signIn()
+    } 
+  }
 
   async checkValidation() {
     let errorMsg = '';
@@ -40,14 +60,18 @@ export class SignupPage implements OnInit {
     if (errorMsg) {
       this.alertService.presentAlert(errorMsg);
     } else {
-      await this.alertService.presentLoader('');
-      setTimeout(async () => {
-        await this.alertService.dismissLoader();
-      }, 5000);
+      // await this.alertService.presentLoader('');
+      // setTimeout(async () => {
+      //   await this.alertService.dismissLoader();
+      // }, 5000);
+      this.alertService.presentToast("User Signup Success")
+      this.router.navigate(['']);
+      this.commonService.userData = this.account;
+      Preferences.set({ key: "userData", value: JSON.stringify(this.account)});
     }
   }
 
-  // --- signin
+  // --- sign in
   signIn() {
     this.isSignup = false;
   }
@@ -72,17 +96,27 @@ export class SignupPage implements OnInit {
       await this.alertService.presentLoader('');
 
       try {
-        this.httpService
-          .get(
-            `emp_login.php?user_id=${this.signInObj.email}&password=${this.signInObj.password}`
-          )
-          .subscribe(async (data) => {
-            await this.alertService.dismissLoader();
-            if(data.status) {
-            } else {
-              this.alertService.presentAlert(data.message);
-            }
-          });
+        // this.httpService
+        //   .get(
+        //     `emp_login.php?user_id=${this.signInObj.email}&password=${this.signInObj.password}`
+        //   )
+        //   .subscribe(async (data) => {
+        //     await this.alertService.dismissLoader();
+        //     if(data.status) {
+        //     } else {
+        //       this.alertService.presentAlert(data.message);
+        //     }
+        //   });
+        this.alertService.presentToast("User Login Successfully");
+        let obj = {
+          name: "Vishal Vanani",
+          email: "vishal@gmail.com",
+          mobile: "918530244224",
+          password: "testing"
+        }
+        this.commonService.userData = obj;
+        Preferences.set({ key: "userData", value: JSON.stringify(obj)});
+        this.router.navigate(['']);
       } catch (err: any) {
         this.alertService.presentAlert(err.message);
         await this.alertService.dismissLoader();

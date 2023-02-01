@@ -13,8 +13,8 @@ export class SmartFormPage implements OnInit {
   amount: any;
   note: string = '';
   category: any;
-incomeCategoryList: any[] = [];
-expenseCategoryList: any[] = [];
+  incomeCategoryList: any[] = [];
+  expenseCategoryList: any[] = [];
   mode: any;
   index: any;
   constructor(

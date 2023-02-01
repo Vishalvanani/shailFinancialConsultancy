@@ -48,17 +48,17 @@ export class CourseInquiryPage implements OnInit {
       course_id: this.courseId,
       inq_date: dayjs().format("YYYY-MM-DD")
     };
-    await this.alertService.presentLoader('');
-    this.httpService.post("course_add_inquiry.php", data).subscribe(async res => {
+    // await this.alertService.presentLoader('');
+    // this.httpService.post("course_add_inquiry.php", data).subscribe(async res => {
       await this.alertService.presentToast("Successfully Added Inquiry");
-      await this.alertService.dismissLoader();
+      // await this.alertService.dismissLoader();
       await this.modalCtrl.dismiss(data);
       return true;
-    }, async (err) => {
-      await this.alertService.dismissLoader();
-      // await this.modalCtrl.dismiss(data);
-      await this.alertService.presentAlert(err);
-      return true;
-    })
+    // }, async (err) => {
+    //   await this.alertService.dismissLoader();
+    //   // await this.modalCtrl.dismiss(data);
+    //   await this.alertService.presentAlert(err);
+    //   return true;
+    // })
   }
 }

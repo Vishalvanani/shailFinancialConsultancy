@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { HttpService } from 'src/app/provider/http.service';
 import { SmartFormPage } from '../smart-form/smart-form.page';
 
 @Component({
@@ -13,12 +14,45 @@ export class IncomeExpensePage implements OnInit {
   totalExpense: number = 0;
   incomeArray: any = [];
   expenseArray: any = [];
+  incomeCategoryList: any[] = [];
+  expenseCategoryList: any[] = [];
 
   constructor(
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private httpService: HttpService
   ) { }
 
-  ngOnInit() {
+  // --- fetch income category
+  fetchIncomeCategory() {
+    return new Promise((resolve, reject) => {
+      this.httpService.get("list_income.php").subscribe(res => {
+        console.log('res: ', res);
+        this.incomeCategoryList = res.items;
+        resolve('');
+      }, (err) => {
+        this.incomeCategoryList = [];
+        reject(err)
+      })
+    })
+  }
+
+  // --- fetch expense category
+  fetchExpenseCategory() {
+    return new Promise((resolve, reject) => {
+      this.httpService.get("list_expense.php").subscribe(res => {
+        console.log('res: ', res);
+        this.expenseCategoryList = res.items;
+        resolve('');
+      }, (err) => {
+        this.expenseCategoryList = [];
+        reject(err)
+      })
+    })
+  }
+
+  async ngOnInit() {
+    await this.fetchIncomeCategory();
+    await this.fetchExpenseCategory();
     setTimeout(() => {
       this.dateTime = new Date().toISOString();
     });

@@ -62,7 +62,12 @@ const routes: Routes = [
   {
     path: 'document-upload',
     loadChildren: () => import('./pages/document-upload/document-upload.module').then( m => m.DocumentUploadPageModule)
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   }
+
 
 
 
