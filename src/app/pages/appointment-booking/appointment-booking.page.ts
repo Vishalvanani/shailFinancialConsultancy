@@ -59,7 +59,7 @@ export class AppointmentBookingPage {
       }, async (err) => {
         console.log('err: ', err);
         await this.alertService.dismissLoader();
-        await this.alertService.presentAlert(err);
+        await this.alertService.presentAlert(err.message);
       })
     }
   }

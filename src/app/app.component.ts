@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { AlertController, Platform } from '@ionic/angular';
 import { AlertService } from './provider/alert.service';
 import { Location } from "@angular/common";
+import { Preferences } from '@capacitor/preferences';
+import { CommonService } from './provider/common.service';
+import { MenuController } from "@ionic/angular";
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -13,17 +16,44 @@ export class AppComponent {
     { title: 'Home', url: '', icon: 'home' },
     { title: 'About Us', url: '/folder/aboutUs', icon: 'mail' },
     { title: 'Download', url: '/folder/download', icon: 'download-outline' },
-    { title: 'Profile', url: '/folder/profile', icon: 'person-circle-outline' },
     { title: 'Payment Info', url: '/folder/payment-info', icon: 'information-circle-outline' },
+    { title: 'Logout', url: '/folder/logout', icon: 'log-out-outline' }
   ];
+
+  accordionList: any[] = [
+    {
+      title: "Edit Profile",
+      icon: "create",
+      url: "/edit-profile"
+    },
+    {
+      title: "Document Upload",
+      icon: "add",
+      url: "/document-upload"
+    }
+  ]
+
   constructor(
     private platform: Platform,
     private _location: Location,
     public alertController: AlertController,
     public router: Router,
-    public alertService: AlertService
+    public alertService: AlertService,
+    public commonService: CommonService,
+    private menu: MenuController
   ) {
     this.platform.backButton.subscribeWithPriority(10, async (res) => {
+      console.log('res: subscribeWithPriority', res);
+      await this.getUserDataFromStorage();
+      
+      console.log('this._location.isCurrentPathEqualTo: ', this._location.isCurrentPathEqualTo);
+      if(this._location.isCurrentPathEqualTo("/signup") && !this.commonService.userData) { 
+        this.showExitConfirm();
+        return;
+      }
+      
+      if(!this.commonService.userData) return;
+
       if (
         this._location.isCurrentPathEqualTo('/folder/home') ||
         this._location.isCurrentPathEqualTo('')
@@ -100,10 +130,9 @@ export class AppComponent {
       this.router.navigate(['/folder/payment-info']);
     } else if(p.url == '') {
       this.router.navigate(['']);
-    } else if(p.url == '/folder/profile') {
-      this.router.navigate(['/document-upload']);
+    } else if(p.url == '/folder/logout') {
+      this.logout();
     }
-
     setTimeout(() => {
       this.getSelectedIndex();
     }, 1000);
@@ -122,13 +151,41 @@ export class AppComponent {
     }
   }
 
-  ngOnInit() {
+  accordionClick(url: string) {
+    this.menu.close();
+    this.router.navigate([url]);
+  }
+
+
+  async ngOnInit() {
     setTimeout(() => {
       this.getSelectedIndex();
     }, 2000);
+
+    await this.getUserDataFromStorage();
+    if(!this.commonService.userData) {
+      this.router.navigate(['signup'], { queryParams: { isUserLoggedin: "" } })
+    }
   }
 
   onClick(){
     
+  }
+
+  async logout() {
+    let res = await this.alertService.confirm("Are you sure you want to log out?", "Confirmation", "Yes", "No");
+    if(res) {
+      Preferences.remove({key : "userData"});
+      this.commonService.userData = "";
+      window.location.reload();
+      // this.router.navigate(['signup'], { queryParams: { isUserLoggedin: "" } })
+    }
+  }
+
+  async getUserDataFromStorage() {
+    let userData: any = await Preferences.get({key: "userData"})
+    console.log('userData: ', userData);
+    if(userData && userData.value) this.commonService.userData = JSON.parse(userData.value);
+    console.log('this.commonService.userData: ', this.commonService.userData);
   }
 }

@@ -92,4 +92,35 @@ export class AlertService {
     }
     return result;
   }
+
+  /**
+   * helper function to ask confirmation
+   * @returns Promise of type boolean, resolves with true if positive button clicked, false otherwise
+   */
+  confirm(msg = 'Are you sure?', title = 'Confirmation', positiveBtnText = 'Yes', negativeBtnText = 'No',
+    positiveBtnHandler?: Function, negativeBtnHandler?: Function): Promise<boolean> {
+    return new Promise(resolve => {
+      this.presentAlert(msg, title, [
+        {
+          text: negativeBtnText,
+          handler: () => {
+            if (negativeBtnHandler)
+              return negativeBtnHandler()
+            else
+              return resolve(false)
+          },
+          role: 'cancel'
+        },
+        {
+          text: positiveBtnText,
+          handler: () => {
+            if (positiveBtnHandler)
+              return positiveBtnHandler()
+            else
+              return resolve(true)
+          }
+        }
+      ])
+    })
+  }
 }
