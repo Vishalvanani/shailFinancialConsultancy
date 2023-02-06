@@ -11,7 +11,7 @@ import { HttpService } from 'src/app/provider/http.service';
   styleUrls: ['./appointment-booking.page.scss'],
 })
 export class AppointmentBookingPage {
-  inquiryForm: any = {};
+  appointment: any = {};
   constructor(
     private alertService: AlertService,
     private commonService: CommonService,
@@ -23,36 +23,36 @@ export class AppointmentBookingPage {
 
   async checkValidation() {
     let errorMsg = '';
-    if (this.alertService.isBlank(this.inquiryForm.name)) {
+    if (this.alertService.isBlank(this.appointment.name)) {
       errorMsg = 'Please enter your name';
-    } else if (this.alertService.isBlank(this.inquiryForm.email)) {
+    } else if (this.alertService.isBlank(this.appointment.email)) {
       errorMsg = 'Please enter your email';
-    } else if (!this.commonService.validateEmail(this.inquiryForm.email)) {
+    } else if (!this.commonService.validateEmail(this.appointment.email)) {
       errorMsg = 'Please enter valid email address';
-    } else if (this.alertService.isBlank(this.inquiryForm.mobile)) {
+    } else if (this.alertService.isBlank(this.appointment.mobile)) {
       errorMsg = 'Please enter your mobile number';
-    } else if (this.alertService.isBlank(this.inquiryForm.inquiryFor)) {
+    } else if (this.alertService.isBlank(this.appointment.appointmentFor)) {
       errorMsg = 'Please enter reason for inquiry';
     }
 
     if (errorMsg) {
       this.alertService.presentAlert(errorMsg);
     } else {
-      console.log(this.inquiryForm);
+      console.log(this.appointment);
 
       let data = {
-        name: this.inquiryForm.name,
-        phone_number: this.inquiryForm.mobile,
-        email_address: this.inquiryForm.email,
-        message: this.inquiryForm.inquiryFor,
-        inquiry_4: this.inquiryForm.inquiryFor,
+        name: this.appointment.name,
+        phone_number: this.appointment.mobile,
+        email_address: this.appointment.email,
+        message: this.appointment.appointmentFor,
+        inquiry_4: this.appointment.appointmentFor,
         appointment_date: dayjs().format("YYYY-MM-DD")
       }
       
       console.log('data: ', data);
 
       await this.alertService.presentLoader('');
-      this.httpService.post('add_appointment.php', this.inquiryForm).subscribe(async res => {
+      this.httpService.post('add_appointment.php', this.appointment).subscribe(async res => {
         await this.alertService.presentToast("Appointment booking successfully");
         await this.alertService.dismissLoader();
         await this.router.navigate(['']);

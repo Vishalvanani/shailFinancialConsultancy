@@ -7,15 +7,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+
   <ion-grid>
     <ion-row>
       <ion-col size="6" *ngFor="let item of calculatorList">
-        
         <div class="main-card" (click)="openPage(item)">
-          <p style="font-size: 18px;margin-bottom: 0px;">{{item.title}}</p>
+          <img [src]="item.icon">
          </div>
        </ion-col>
      </ion-row>
   </ion-grid>
-</ion-content>
+ </ion-content>

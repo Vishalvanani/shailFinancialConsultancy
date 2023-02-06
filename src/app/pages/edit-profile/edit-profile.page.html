@@ -8,23 +8,38 @@
 </ion-header>
 
 <!-- For Update Profile -->
-<ion-content class="vertical_centr signup-content">
-  <div class="container">
-    <label for="uname" style="color: black !important;">Name</label>
-    <input type="text" class="input-txt" placeholder="Please enter your name" [(ngModel)]="account.name" required>
+<ion-content padding class="vertical_centr">
+  <ion-row style="padding: 5px 10px;margin: 0;">
+    <ion-col size="12">
+      <p class="inputTitle">Name</p>
+    </ion-col>
 
-    <label for="psw" style="color: black !important;">Email</label>
-    <input type="email" class="input-txt" placeholder="Please enter your email" [(ngModel)]="account.email" required>
+    <ion-col size="12">
+      <input type="text" placeholder="Please enter your name" [(ngModel)]="account.name" class="input-type" required>
+    </ion-col>
 
-    <label for="psw" style="color: black !important;">Mobile</label>
-    <input type="number" class="input-txt" placeholder="Please enter your mobile number" [(ngModel)]="account.mobile"
-      required>
+    <ion-col size="12">
+      <p class="inputTitle">Email</p>
+    </ion-col>
 
-    <!-- <label for="psw" style="color: black !important;">Password</label>
-    <input type="password" class="input-txt" placeholder="Please enter password" [(ngModel)]="account.password"
-      required> -->
+    <ion-col size="12">
+      <input type="email" placeholder="Please enter your email" [(ngModel)]="account.email" class="input-type" required>
+    </ion-col>
 
-    <button ion-button class="loginBtn" (click)="updateProfile()">Update Profile</button>
-  </div>
+    <ion-col size="12">
+      <p class="inputTitle">Mobile</p>
+    </ion-col>
 
+    <ion-col size="12">
+      <input type="number" placeholder="Please enter your mobile number" [(ngModel)]="account.mobile" class="input-type" required>
+    </ion-col>
+  </ion-row>
+
+  <!-- Button -->
+  <ion-row style="padding: 0px 10px 15px;">
+    <ion-col size="12">
+      <ion-button type="button" class="loginBtn" (click)="updateProfile()">
+        Update Profile</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>
