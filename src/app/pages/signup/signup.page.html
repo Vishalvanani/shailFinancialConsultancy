@@ -8,41 +8,81 @@
 </ion-header>
 
 <!-- For Signup -->
-<ion-content class="vertical_centr signup-content" *ngIf="isSignup">
-  <div class="container">
-    <label for="uname" style="color: black !important;">Name</label>
-    <input type="text" class="input-txt" placeholder="Please enter your name" [(ngModel)]="account.name" required>
+<ion-content class="vertical_centr" *ngIf="isSignup">
+  <ion-row style="padding: 5px 10px;margin: 0;">
+    <ion-col size="12">
+      <p class="inputTitle">Name</p>
+    </ion-col>
 
-    <label for="psw" style="color: black !important;">Email</label>
-    <input type="email" class="input-txt" placeholder="Please enter your email" [(ngModel)]="account.email" required>
+    <ion-col size="12">
+      <input type="text" placeholder="Please enter your name" [(ngModel)]="account.name" class="input-type" required>
+    </ion-col>
 
-    <label for="psw" style="color: black !important;">Mobile</label>
-    <input type="number" class="input-txt" placeholder="Please enter your mobile number" [(ngModel)]="account.mobile"
-      required>
+    <ion-col size="12">
+      <p class="inputTitle">Email</p>
+    </ion-col>
 
-    <label for="psw" style="color: black !important;">Password</label>
-    <input type="password" class="input-txt" placeholder="Please enter password" [(ngModel)]="account.password"
-      required>
+    <ion-col size="12">
+      <input type="email" placeholder="Please enter your email" [(ngModel)]="account.email" class="input-type" required>
+    </ion-col>
 
-    <button ion-button class="loginBtn" (click)="checkValidation()">Signup</button>
-    <button ion-button class="loginBtn" (click)="signIn()">Sign in</button>
-  </div>
+    <ion-col size="12">
+      <p class="inputTitle">Mobile</p>
+    </ion-col>
 
+    <ion-col size="12">
+      <input type="number" placeholder="Please enter your mobile number" [(ngModel)]="account.mobile" class="input-type" required>
+    </ion-col>
+
+    <ion-col size="12">
+      <p class="inputTitle">Password</p>
+    </ion-col>
+
+    <ion-col size="12">
+      <input type="password" placeholder="Please enter password" [(ngModel)]="account.password" class="input-type">
+    </ion-col>
+  </ion-row>
+
+  <!-- Button -->
+  <ion-row style="padding: 0px 10px 15px;">
+    <ion-col size="12">
+      <ion-button type="button" class="loginBtn" (click)="checkValidation()">
+        Signup</ion-button>
+    </ion-col>
+    <ion-col size="12">
+      <ion-button (click)="signIn()" type="button" class="loginBtn">Sign in</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>
 
 <!-- For Login -->
-<ion-content class="vertical_centr signup-content" *ngIf="!isSignup">
-  <div class="container">
+<ion-content padding *ngIf="!isSignup" class="vertical_centr">
+  <ion-row style="padding: 5px 10px;margin: 0;">
+    <ion-col size="12">
+      <p class="inputTitle">Email</p>
+    </ion-col>
 
-    <label for="psw" style="color: black !important;">Email</label>
-    <input type="email" class="input-txt" placeholder="Please enter your email" [(ngModel)]="signInObj.email" required>
+    <ion-col size="12">
+      <input type="email" placeholder="Please enter your email" [(ngModel)]="signInObj.email" class="input-type" required>
+    </ion-col>
 
-    <label for="psw" style="color: black !important;">Password</label>
-    <input type="password" class="input-txt" placeholder="Please enter password" [(ngModel)]="signInObj.password"
-      required>
+    <ion-col size="12">
+      <p class="inputTitle">Password</p>
+    </ion-col>
 
-    <button ion-button class="loginBtn" (click)="doLogin()">Login</button>
-    <button ion-button class="loginBtn" (click)="openSignupUI()">Signup</button>
-  </div>
+    <ion-col size="12">
+      <input type="password" placeholder="Please enter password" [(ngModel)]="signInObj.password" class="input-type">
+    </ion-col>
+  </ion-row>
 
+  <!-- Button -->
+  <ion-row style="padding: 0px 10px 15px;">
+    <ion-col size="12">
+      <ion-button type="button" class="loginBtn" (click)="doLogin()">
+        Login</ion-button>
+    </ion-col>
+    <ion-col size="12">
+      <ion-button (click)="openSignupUI()" type="button" class="loginBtn">Signup</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>

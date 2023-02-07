@@ -9,7 +9,6 @@
 
 <ion-content>
   <ion-card *ngIf="courseData">
-    <img alt="" src="https://ionicframework.com/docs/img/demos/card-media.png" />
     <ion-card-header>
       <ion-card-title>{{courseData.course_title}}</ion-card-title>
       <ion-card-subtitle> {{courseData.course_desc}}</ion-card-subtitle>
@@ -17,9 +16,6 @@
   
     <ion-card-content>
      <ion-row>
-      <ion-col size="6" style="border: 1px solid #999;">
-        <strong> Price:</strong> {{courseData.course_price}}
-      </ion-col>
       <ion-col size="6" style="border: 1px solid #999;"><strong> Duration:</strong> {{courseData.course_duration}}</ion-col>
      </ion-row>
     </ion-card-content>

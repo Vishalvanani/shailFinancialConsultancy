@@ -7,24 +7,47 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="vertical_centr signup-content">
-  <div class="container">
-    <label for="uname">Name</label>
-    <input type="text" class="input-txt" placeholder="Please enter your name" [(ngModel)]="inquiryForm.name" required>
+<ion-content padding class="vertical_centr">
+  <ion-row style="padding: 5px 10px;margin: 0;">
+    <ion-col size="12">
+      <p class="inputTitle">Name</p>
+    </ion-col>
 
-    <label for="psw">Email</label>
-    <input type="email" class="input-txt" placeholder="Please enter your email" [(ngModel)]="inquiryForm.email"
-      required>
+    <ion-col size="12">
+      <input type="text" placeholder="Please enter your name" [(ngModel)]="appointment.name" class="input-type" required>
+    </ion-col>
 
-    <label for="psw">Mobile</label>
-    <input type="number" class="input-txt" placeholder="Please enter your mobile number"
-      [(ngModel)]="inquiryForm.mobile" required>
+    <ion-col size="12">
+      <p class="inputTitle">Email</p>
+    </ion-col>
 
-    <label for="psw">Inquiry For</label>
-    <textarea type="password" class="input-txt" placeholder="Please enter Reason For Inquiry"
-      [(ngModel)]="inquiryForm.inquiryFor" style="height: 140px;" required></textarea>
+    <ion-col size="12">
+      <input type="email" placeholder="Please enter your email" [(ngModel)]="appointment.email" class="input-type" required>
+    </ion-col>
 
-    <button ion-button class="loginBtn" (click)="checkValidation()">Appointment Booking</button>
-  </div>
+    <ion-col size="12">
+      <p class="inputTitle">Mobile</p>
+    </ion-col>
 
+    <ion-col size="12">
+      <input type="number" placeholder="Please enter your mobile number" [(ngModel)]="appointment.mobile" class="input-type" required>
+    </ion-col>
+
+    <ion-col size="12">
+      <p class="inputTitle">Appointment For</p>
+    </ion-col>
+
+    <ion-col size="12">
+      <textarea type="text" class="input-txt" placeholder="Please enter Reason For Appointment Reason"
+        [(ngModel)]="appointment.appointmentFor" style="height: 140px;" required></textarea>
+    </ion-col>
+  </ion-row>
+
+  <!-- Button -->
+  <ion-row style="padding: 0px 10px 15px;">
+    <ion-col size="12">
+      <ion-button type="button" class="loginBtn" (click)="checkValidation()">
+        Appointment Booking</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>

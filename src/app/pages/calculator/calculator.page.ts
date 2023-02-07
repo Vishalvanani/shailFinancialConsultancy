@@ -9,20 +9,38 @@ import { NavController } from '@ionic/angular';
 })
 export class CalculatorPage implements OnInit {
 
+  // calculatorList: any[] = [
+  //   {
+  //     title: "SIP Calculator",
+  //     route: "sip-calculator",
+  //   },
+  //   {
+  //     title: "Loan Calculator",
+  //     route: "loan-calculator",
+  //   },
+  //   {
+  //     title: "Insurance Calculator",
+  //     route: "insurance-calculator",
+  //   },
+  // ];
+
   calculatorList: any[] = [
     {
       title: "SIP Calculator",
-      route: "sip-calculator",
+      icon: "../../assets/imgs/sip.png",
+      route: "sip-calculator"
     },
     {
       title: "Loan Calculator",
-      route: "loan-calculator",
+      icon: "../../assets/imgs/loan.png",
+      route: "loan-calculator"
     },
     {
       title: "Insurance Calculator",
-      route: "insurance-calculator",
-    },
-  ];
+      icon: "../../assets/imgs/insurance.png",
+      route: "insurance-calculator"
+    }
+  ]
 
   constructor(
     private router: Router

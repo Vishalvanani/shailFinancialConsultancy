@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/provider/alert.service';
-import { HttpService } from 'src/app/provider/http.service';
 import * as dayjs from 'dayjs'
 
 @Component({
@@ -14,8 +13,7 @@ export class CourseInquiryPage implements OnInit {
   @Input() courseId: any;
   constructor(
     private modalCtrl: ModalController,
-    private alertService: AlertService,
-    private httpService: HttpService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit() {}

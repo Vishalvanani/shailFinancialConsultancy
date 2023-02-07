@@ -25,11 +25,11 @@ export class HomePage implements OnInit {
       icon: "../../assets/imgs/iemanager.png",
       route: "income-expense"
     },
-    {
-      title: "Signup",
-      icon: "../../assets/imgs/signup.png",
-      route: "signup"
-    },
+    // {
+    //   title: "Signup",
+    //   icon: "../../assets/imgs/signup.png",
+    //   route: "signup"
+    // },
     {
       title: "Appointment Booking",
       icon: "../../assets/imgs/appointment.png",
