@@ -81,3 +81,15 @@ input{
   ion-fab{
     margin: 10px;
 }
+.loginBtn {
+  width: 100%;
+  height: 45px;
+  --background-color: #284299 !important;
+  --border-radius: 25px;
+}
+.inputTitle {
+  margin: 10px 0px 0px !important;
+  color: #47525d;
+  font-weight: 500;
+  padding-left: 2px;
+}

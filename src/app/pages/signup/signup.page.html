@@ -1,14 +1,7 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title class="main-title">{{isSignup ? 'Signup' : 'Login'}}</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <!-- For Signup -->
 <ion-content class="vertical_centr" *ngIf="isSignup">
+  <img src="assets/imgs/logo.png" alt="" class="signupLogoImg">
   <ion-row style="padding: 5px 10px;margin: 0;">
     <ion-col size="12">
       <p class="inputTitle">Name</p>
@@ -46,7 +39,7 @@
   <!-- Button -->
   <ion-row style="padding: 0px 10px 15px;">
     <ion-col size="12">
-      <ion-button type="button" class="loginBtn" (click)="checkValidation()">
+      <ion-button type="button" class="loginBtn" (click)="checkValidation()" style="margin-top: 20px;">
         Signup</ion-button>
     </ion-col>
     <ion-col size="12">
@@ -57,6 +50,7 @@
 
 <!-- For Login -->
 <ion-content padding *ngIf="!isSignup" class="vertical_centr">
+  <img src="assets/imgs/logo.png" alt="" class="loginLogoImg">
   <ion-row style="padding: 5px 10px;margin: 0;">
     <ion-col size="12">
       <p class="inputTitle">Email</p>
@@ -74,11 +68,10 @@
       <input type="password" placeholder="Please enter password" [(ngModel)]="signInObj.password" class="input-type">
     </ion-col>
   </ion-row>
-
   <!-- Button -->
   <ion-row style="padding: 0px 10px 15px;">
     <ion-col size="12">
-      <ion-button type="button" class="loginBtn" (click)="doLogin()">
+      <ion-button type="button" class="loginBtn" (click)="doLogin()" style="margin-top: 20px;">
         Login</ion-button>
     </ion-col>
     <ion-col size="12">
