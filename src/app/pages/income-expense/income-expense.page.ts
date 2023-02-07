@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HttpService } from 'src/app/provider/http.service';
 import { SmartFormPage } from '../smart-form/smart-form.page';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-income-expense',
@@ -16,11 +17,18 @@ export class IncomeExpensePage implements OnInit {
   expenseArray: any = [];
   incomeCategoryList: any[] = [];
   expenseCategoryList: any[] = [];
+  currentDate: string;
 
   constructor(
     public modalCtrl: ModalController,
     private httpService: HttpService
-  ) { }
+  ) { 
+    this.currentDate = moment().year()+'-'+this.minTwoDigits(moment().month())
+  }
+
+  minTwoDigits(n: any) {
+    return (n < 10 ? '0' : '') + n;
+  }
 
   // --- fetch income category
   fetchIncomeCategory() {
