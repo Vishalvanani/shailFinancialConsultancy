@@ -52,7 +52,7 @@ export class AppointmentBookingPage {
       console.log('data: ', data);
 
       await this.alertService.presentLoader('');
-      this.httpService.post('add_appointment.php', this.appointment).subscribe(async res => {
+      this.httpService.post('add_appointment.php', data).subscribe(async res => {
         await this.alertService.presentToast("Appointment booking successfully");
         await this.alertService.dismissLoader();
         await this.router.navigate(['']);

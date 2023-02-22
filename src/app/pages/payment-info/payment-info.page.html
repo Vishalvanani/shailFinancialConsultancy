@@ -10,12 +10,13 @@
 <ion-content>
   <ion-card *ngFor="let paymentInfo of paymentInfoList">
     <ion-card-header>
-      <ion-card-title>{{paymentInfo.client_name}}</ion-card-title>
+      <ion-card-title>{{paymentInfo.bank_account_name}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Payment Type: {{paymentInfo.pay_type}}</p>
-      <p>Payment Amount: {{paymentInfo.pay_amount}}</p>
-      <p>Payment Date: {{paymentInfo.pay_date}}</p>
+      <p>Bank Name: {{paymentInfo.bank_name}}</p>
+      <p>Branch Name: {{paymentInfo.branch_name}}</p>
+      <p>Account Number: {{paymentInfo.account_no}}</p>
+      <p>IFSC Code: {{paymentInfo.ifsc_code}}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { HttpService } from 'src/app/provider/http.service';
 import { SmartFormPage } from '../smart-form/smart-form.page';
 import * as moment from 'moment';
+import { CommonService } from 'src/app/provider/common.service';
 
 @Component({
   selector: 'app-income-expense',
@@ -21,7 +22,8 @@ export class IncomeExpensePage implements OnInit {
 
   constructor(
     public modalCtrl: ModalController,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private commonService: CommonService
   ) { 
     this.currentDate = moment().year()+'-'+this.minTwoDigits(moment().month())
   }
@@ -77,12 +79,26 @@ export class IncomeExpensePage implements OnInit {
     });
 
     modal.onDidDismiss().then((modelData) => {
+      console.log('modelData: ', modelData);
       if (modelData !== null) {
         if (modelData.data.data.type == 'income') {
           if (modelData.data.mode == 'edit') {
             this.incomeArray[modelData.data.index] = modelData.data.data
           } else {
             this.incomeArray.push(modelData.data.data)
+            let obj = {
+              client_id: 1,
+              income_id: modelData.data.data.category,
+              amount: modelData.data.data.amount,
+              date: moment().format("YYYY-MM-DD")
+            }
+
+            // this.httpService.post("add_customer_income.php", obj).subscribe(res => {
+              
+            // }, (err) => {
+
+            // })
+
           }
           this.totalIncome = 0;
           for (var i in this.incomeArray) {

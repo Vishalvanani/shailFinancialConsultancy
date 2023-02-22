@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/provider/alert.service';
 import * as dayjs from 'dayjs'
+import { HttpService } from 'src/app/provider/http.service';
 
 @Component({
   selector: 'app-course-inquiry',
@@ -13,7 +14,8 @@ export class CourseInquiryPage implements OnInit {
   @Input() courseId: any;
   constructor(
     private modalCtrl: ModalController,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private httpService: HttpService
   ) {}
 
   ngOnInit() {}
@@ -46,17 +48,16 @@ export class CourseInquiryPage implements OnInit {
       course_id: this.courseId,
       inq_date: dayjs().format("YYYY-MM-DD")
     };
-    // await this.alertService.presentLoader('');
-    // this.httpService.post("course_add_inquiry.php", data).subscribe(async res => {
-      await this.alertService.presentToast("Successfully Added Inquiry");
-      // await this.alertService.dismissLoader();
+    await this.alertService.presentLoader('');
+    this.httpService.post("course_add_inquiry.php", data).subscribe(async res => {
+      await this.alertService.dismissLoader();
       await this.modalCtrl.dismiss(data);
       return true;
-    // }, async (err) => {
-    //   await this.alertService.dismissLoader();
-    //   // await this.modalCtrl.dismiss(data);
-    //   await this.alertService.presentAlert(err);
-    //   return true;
-    // })
+    }, async (err) => {
+      await this.alertService.dismissLoader();
+      // await this.modalCtrl.dismiss(data);
+      await this.alertService.presentAlert(err);
+      return true;
+    })
   }
 }

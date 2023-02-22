@@ -16,6 +16,10 @@ export class CommonService {
       );
     }
 
+    generateRandomID() {
+      return Math.floor(Math.random() * 999999)
+    }
+
 
 
   }

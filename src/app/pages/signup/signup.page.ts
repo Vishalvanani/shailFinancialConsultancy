@@ -60,14 +60,25 @@ export class SignupPage implements OnInit {
     if (errorMsg) {
       this.alertService.presentAlert(errorMsg);
     } else {
-      // await this.alertService.presentLoader('');
-      // setTimeout(async () => {
-      //   await this.alertService.dismissLoader();
-      // }, 5000);
-      this.alertService.presentToast("User Signup Success")
-      this.router.navigate(['']);
-      this.commonService.userData = this.account;
-      Preferences.set({ key: "userData", value: JSON.stringify(this.account)});
+      await this.alertService.presentLoader('');
+      let obj = {
+        e_name: this.account.name,
+        e_mob: this.account.mobile,
+        user_id: this.account.email,
+        password: this.account.password
+      }
+
+      this.httpService.post('add_employee.php', obj).subscribe(res => {
+        Preferences.set({ key: "userData", value: JSON.stringify(this.account)});
+        this.alertService.presentToast("User Signup Success")
+        this.alertService.dismissLoader();
+        this.router.navigate(['']);
+        this.commonService.userData = this.account;
+      }, (err) => {
+        this.alertService.dismissLoader();
+        this.alertService.presentAlert(err.message);
+      })
+
     }
   }
 
@@ -96,27 +107,33 @@ export class SignupPage implements OnInit {
       await this.alertService.presentLoader('');
 
       try {
-        // this.httpService
-        //   .get(
-        //     `emp_login.php?user_id=${this.signInObj.email}&password=${this.signInObj.password}`
-        //   )
-        //   .subscribe(async (data) => {
-        //     await this.alertService.dismissLoader();
-        //     if(data.status) {
-        //     } else {
-        //       this.alertService.presentAlert(data.message);
-        //     }
-        //   });
-        this.alertService.presentToast("User Login Successfully");
-        let obj = {
-          name: "Vishal Vanani",
-          email: "vishal@gmail.com",
-          mobile: "918530244224",
-          password: "testing"
-        }
-        this.commonService.userData = obj;
-        Preferences.set({ key: "userData", value: JSON.stringify(obj)});
-        this.router.navigate(['']);
+        let formData: FormData = new FormData(); 
+        formData.append('user_id', this.signInObj.email); 
+        formData.append('password', this.signInObj.password); 
+        this.httpService
+        .post(
+          `emp_login.php`, formData
+          )
+          .subscribe(async (data) => {
+            console.log('data: ', data);
+            await this.alertService.dismissLoader();
+            this.commonService.userData = this.signInObj;
+            Preferences.set({ key: "userData", value: JSON.stringify(this.signInObj)});
+            this.router.navigate(['']);
+          }, async (err) => {
+            console.log('err: ', err);
+            this.alertService.presentAlert(err.error.message);
+            await this.alertService.dismissLoader();
+          });
+        // this.alertService.presentToast("User Login Successfully");
+        // let obj = {
+        //   name: "Vishal Vanani",
+        //   email: "vishal@gmail.com",
+        //   mobile: "918530244224",
+        //   password: "testing"
+        // }
+        // Preferences.set({ key: "userData", value: JSON.stringify(obj)});
+        // this.router.navigate(['']);
       } catch (err: any) {
         this.alertService.presentAlert(err.message);
         await this.alertService.dismissLoader();
