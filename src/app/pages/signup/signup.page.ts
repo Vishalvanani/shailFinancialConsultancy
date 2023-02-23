@@ -4,6 +4,7 @@ import { Preferences } from '@capacitor/preferences';
 import { AlertService } from 'src/app/provider/alert.service';
 import { CommonService } from 'src/app/provider/common.service';
 import { HttpService } from 'src/app/provider/http.service';
+import { UserService } from 'src/app/provider/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +21,8 @@ export class SignupPage implements OnInit {
     private route: ActivatedRoute,
     private commonService: CommonService,
     private httpService: HttpService,
-    public router: Router
+    public router: Router,
+    private userService: UserService
   ) {}
 
   async ngOnInit() {
@@ -116,24 +118,27 @@ export class SignupPage implements OnInit {
           )
           .subscribe(async (data) => {
             console.log('data: ', data);
-            await this.alertService.dismissLoader();
-            this.commonService.userData = this.signInObj;
-            Preferences.set({ key: "userData", value: JSON.stringify(this.signInObj)});
-            this.router.navigate(['']);
+
+            // fetch user info and save into local storage
+            this.userService.fetchUserInfo(data.userid).subscribe(async userInfoRes => {
+              await this.alertService.dismissLoader();
+              if(userInfoRes && userInfoRes.items && userInfoRes.items.length > 0) { 
+                this.commonService.userData = userInfoRes.items[0];
+                Preferences.set({ key: "userData", value: JSON.stringify(userInfoRes.items[0])});
+                this.router.navigate(['']);
+              } else {
+                this.alertService.presentAlert("User not found!");
+              }
+            }, async (err) => {
+              console.log('err: ', err);
+              this.alertService.presentAlert(err.error.message);
+              await this.alertService.dismissLoader();
+            })
           }, async (err) => {
             console.log('err: ', err);
             this.alertService.presentAlert(err.error.message);
             await this.alertService.dismissLoader();
           });
-        // this.alertService.presentToast("User Login Successfully");
-        // let obj = {
-        //   name: "Vishal Vanani",
-        //   email: "vishal@gmail.com",
-        //   mobile: "918530244224",
-        //   password: "testing"
-        // }
-        // Preferences.set({ key: "userData", value: JSON.stringify(obj)});
-        // this.router.navigate(['']);
       } catch (err: any) {
         this.alertService.presentAlert(err.message);
         await this.alertService.dismissLoader();

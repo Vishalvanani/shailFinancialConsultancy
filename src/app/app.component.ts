@@ -6,6 +6,9 @@ import { Location } from "@angular/common";
 import { Preferences } from '@capacitor/preferences';
 import { CommonService } from './provider/common.service';
 import { MenuController } from "@ionic/angular";
+import { HttpService } from './provider/http.service';
+import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
+import * as moment from 'moment';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -40,7 +43,8 @@ export class AppComponent {
     public router: Router,
     public alertService: AlertService,
     public commonService: CommonService,
-    private menu: MenuController
+    private menu: MenuController,
+    private httpService: HttpService
   ) {
     this.platform.backButton.subscribeWithPriority(10, async (res) => {
       console.log('res: subscribeWithPriority', res);
@@ -114,17 +118,41 @@ export class AppComponent {
     xhr.send();
 }
 
-  selectIndex(p: any) {
+  async selectIndex(p: any) {
     console.log('p: ', p);
     if(p.url == "/folder/download") {
-      this.toDataUrl("https://www.africau.edu/images/default/sample.pdf", (base64: any) => {
-        const downloadPDF = (href: any) => {
-          const downloadLink = document.createElement("a");
-          downloadLink.href = href;
-          downloadLink.download = "fileName.pdf";
-          downloadLink.click();
-        };
-        downloadPDF(base64);
+      if(!this.commonService.userData) {
+        this.alertService.presentAlert("Something went wrong. please try again later!");
+        return;
+      }
+      await this.alertService.presentLoader("");
+      this.httpService.get(`list_files.php?client_id=${this.commonService.userData.e_id}`).subscribe(async res => {
+        await this.alertService.dismissLoader();
+
+        // Handle Error
+        if(!res || res.items.length == 0) {
+          await this.alertService.presentAlert("No record found!");  
+          return
+        }
+
+        let path = res.items[0].pdf_location;
+        this.toDataUrl(path, async (base64: any) => {
+          await Filesystem.writeFile({
+            path: `${moment().valueOf()}.pdf`,
+            data: base64,
+            directory: Directory.Documents
+          }).then(res => {
+            console.log('res: ', res);
+            this.alertService.presentToast("Document Download Successfully.")
+          }, async (err) => {
+            console.log('err: ', err);
+            await this.alertService.dismissLoader();
+            await this.alertService.presentAlert(err.message);
+          })
+        })
+      }, async (err) => {
+        await this.alertService.dismissLoader();
+        await this.alertService.presentAlert(err.message);
       })
     } else if(p.url == '/folder/payment-info') {
       this.router.navigate(['/folder/payment-info']);
