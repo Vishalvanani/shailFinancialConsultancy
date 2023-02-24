@@ -8,14 +8,118 @@
 </ion-header>
 
 <ion-content padding>
-  <h2 style="padding: 0px 15px;">Document Image</h2>
-  <ion-row>
-    <ion-col size="6" style="border: 1px solid #999;" *ngFor="let image of imageUrls;let i = index">
-      <img [src]="image" style="width: 100%; object-fit: cover;">
+  <!-- <h2 style="padding: 0px 15px;">Document Image</h2> -->
+  <ion-grid>
 
-      <ion-icon name="close-circle-outline" class="close-icon" (click)="removeImage(i)"></ion-icon>
-    </ion-col>
-   </ion-row>
+    <!-- Aadhar Card -->
+    <ion-row style="display: flex;justify-content: center;">
 
-  <ion-button type="button" (click)="uploadImage()" class="centerBox" style="--border-radius: 25px;">Upload Image</ion-button>
+      <ion-col size="12">
+        <h4 class="font-bold p-tag-class">Aadhar Card</h4>
+      </ion-col>
+
+      <ion-col size="6">
+        <p class="p-tag-class">Front</p>
+      </ion-col>
+
+      <ion-col size="6">
+        <p class="p-tag-class">Back</p>
+      </ion-col>
+
+      <ion-col size="6" (click)="uploadImage('aadharFront')">
+        <div class="image-block-div">
+          <ion-icon name="add" class="add-icon" *ngIf="!aadharFront"></ion-icon>
+          <img [src]="aadharFront" class="doc-image" *ngIf="aadharFront">
+        </div>
+      </ion-col>
+  
+      <ion-col size="6" (click)="uploadImage('aadharBack')">
+        <div class="image-block-div">
+          <ion-icon name="add" class="add-icon" *ngIf="!aadharBack"></ion-icon>
+          <img [src]="aadharBack" class="doc-image" *ngIf="aadharBack">
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Pan Card -->
+    <ion-row style="display: flex;justify-content: center;margin-top: 20px;">
+      <ion-col size="12">
+        <h4 class="font-bold p-tag-class">Pan Card</h4>
+      </ion-col>
+
+      <ion-col size="6">
+        <p class="p-tag-class">Front</p>
+      </ion-col>
+
+      <ion-col size="6">
+        <p class="p-tag-class">Back</p>
+      </ion-col>
+
+      <ion-col size="6" (click)="uploadImage('panCardFront')">
+        <div class="image-block-div">
+          <ion-icon name="add" class="add-icon" *ngIf="!panCardFront"></ion-icon>
+          <img [src]="panCardFront" class="doc-image" *ngIf="panCardFront">
+        </div>
+      </ion-col>
+  
+      <ion-col size="6" (click)="uploadImage('panCardBack')">
+        <div class="image-block-div">
+          <ion-icon name="add" class="add-icon" *ngIf="!panCardBack"></ion-icon>
+          <img [src]="panCardBack" class="doc-image" *ngIf="panCardBack">
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Bank Statement -->
+    <ion-row style="margin-top: 20px;">
+      <ion-col size="12">
+        <h4 class="font-bold p-tag-class">Bank Statement</h4>
+      </ion-col>
+
+      <ion-col size="6" (click)="uploadImage('bankStatement')">
+        <div class="image-block-div">
+          <ion-icon name="add" class="add-icon" *ngIf="!bankStatement"></ion-icon>
+          <img [src]="bankStatement" class="doc-image" *ngIf="bankStatement">
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Other Document -->
+    <ion-row style="margin-top: 20px;">
+      <ion-col size="12">
+        <h4 class="font-bold p-tag-class">Other Documents</h4>
+      </ion-col>
+
+      <ng-container *ngIf="otherDocuments.length > 0">
+        <ion-col size="6" (click)="uploadImage('otherDocuments')" *ngFor="let image of otherDocuments">
+          <div class="image-block-div" >
+            <img [src]="image" class="doc-image">
+          </div>
+        </ion-col>
+      </ng-container>
+
+      <ion-col size="6" (click)="uploadImage('otherDocuments')" >
+        <div class="image-block-div">
+          <ion-icon name="add" class="add-icon"></ion-icon>
+        </div>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-button type="button" (click)="saveImage()" class="centerBox" style="--border-radius: 25px;">Save</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6" style="border: 1px solid #999;" *ngFor="let image of imageUrls;let i = index">
+        <img [src]="image" class="doc-image">
+  
+        <ion-icon name="close-circle-outline" class="close-icon" (click)="removeImage(i)"></ion-icon>
+      </ion-col>
+     </ion-row>
+  </ion-grid>
+
+  <!-- <ion-button type="button" (click)="uploadImage()" class="centerBox" style="--border-radius: 25px;">Upload Image</ion-button> -->
 </ion-content>

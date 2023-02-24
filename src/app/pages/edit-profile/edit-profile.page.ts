@@ -31,13 +31,13 @@ export class EditProfilePage implements OnInit {
   updateProfile() {
     let errorMsg = '';
 
-    if (this.alertService.isBlank(this.account.name)) {
+    if (this.alertService.isBlank(this.account.e_name)) {
       errorMsg = 'Please enter your name';
-    } else if (this.alertService.isBlank(this.account.email)) {
+    } else if (this.alertService.isBlank(this.account.user_id)) {
       errorMsg = 'Please enter your email';
-    } else if (!this.commonService.validateEmail(this.account.email)) {
+    } else if (!this.commonService.validateEmail(this.account.user_id)) {
       errorMsg = 'Please enter valid email address';
-    } else if (this.alertService.isBlank(this.account.mobile)) {
+    } else if (this.alertService.isBlank(this.account.e_mob)) {
       errorMsg = 'Please enter your mobile number';
     }
 
