@@ -53,9 +53,8 @@ export class HomePage implements OnInit {
   fetchVideoList() {
     this.httpService.get(`list_video.php`).subscribe(res => {
       this.videoList = res.items;
-      
       this.videoList.forEach(element => {
-        element.url = element.video_url.replace("watch", "embed");
+        element.url = element.video_url.replace("watch?v=", "embed/");
       });
       
       console.log('this.videoList: ', this.videoList);
@@ -67,8 +66,6 @@ export class HomePage implements OnInit {
   openPage(item: any) {
     this.router.navigateByUrl(item.route)
   }
-
-
 }
 
 

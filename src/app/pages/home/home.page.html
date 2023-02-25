@@ -24,19 +24,51 @@
         <h4 style="font-weight: bold;">Videos</h4>
       </ion-col>
 
-      <ion-col size="12" *ngFor="let video of videoList">
-        <ion-card style="margin: 0px !important;">
-          <ion-card-header style="padding: 0px !important;height: 150px !important;">
-            <!-- <ion-card-title>{{video.video_url}}</ion-card-title> -->
-            <!-- src="https://24-dev.com/vdkw/video/media/{{media.url}}" -->
-            <!-- <video src="{{video.video_url}}" style="width: 100%;height: 100%;" controls controlsList="nodownload" type="video/youtube"></video> -->
-            <iframe style="width: 100%;height: 100%;" [src]="video.url | safe" frameborder="0" allowfullscreen></iframe>
-            <!-- <video style="width: 100%;height: 100%;" controls controlsList="nodownload">
-              <source type="video/youtube" src="{{video.video_url}}" />
-            </video> -->
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
+      <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+        <ion-slide *ngFor="let video of videoList" style="width: 235px; height: 200px; border: 2px solid #f8f8f8">
+          <ion-col>
+            <ion-card style="margin: 0px !important;">
+              <ion-card-header style="padding: 10px !important;height: 150px !important;">
+                <iframe style="width: 100%;height: 100%;" [src]="video.url | safe" frameborder="0" allowfullscreen></iframe>
+              </ion-card-header>
+              <ion-card-subtitle class="videoCard">Uploaded on: {{ video.upload_date }}</ion-card-subtitle>
+            </ion-card>
+          </ion-col>
+        </ion-slide>
+
+        <ion-slide *ngFor="let video of videoList" style="width: 235px; height: 200px; border: 2px solid #f8f8f8">
+          <ion-col>
+            <ion-card style="margin: 0px !important;">
+              <ion-card-header style="padding: 10px !important;height: 150px !important;">
+                <iframe style="width: 100%;height: 100%;" [src]="video.url | safe" frameborder="0" allowfullscreen></iframe>
+              </ion-card-header>
+              <ion-card-subtitle class="videoCard">Uploaded on: {{ video.upload_date }}</ion-card-subtitle>
+            </ion-card>
+          </ion-col>
+        </ion-slide>
+
+        <ion-slide *ngFor="let video of videoList" style="width: 235px; height: 200px; border: 2px solid #f8f8f8">
+          <ion-col>
+            <ion-card style="margin: 0px !important;">
+              <ion-card-header style="padding: 10px !important;height: 150px !important;">
+                <iframe style="width: 100%;height: 100%;" [src]="video.url | safe" frameborder="0" allowfullscreen></iframe>
+              </ion-card-header>
+              <ion-card-subtitle class="videoCard">Uploaded on: {{ video.upload_date }}</ion-card-subtitle>
+            </ion-card>
+          </ion-col>
+        </ion-slide>
+        
+        <ion-slide *ngFor="let video of videoList" style="width: 235px; height: 200px; border: 2px solid #f8f8f8">
+          <ion-col>
+            <ion-card style="margin: 0px !important;">
+              <ion-card-header style="padding: 10px !important;height: 150px !important;">
+                <iframe style="width: 100%;height: 100%;" [src]="video.url | safe" frameborder="0" allowfullscreen></iframe>
+              </ion-card-header>
+              <ion-card-subtitle class="videoCard">Uploaded on: {{ video.upload_date }}</ion-card-subtitle>
+            </ion-card>
+          </ion-col>
+        </ion-slide>
+      </ion-slides>
     </ion-row>
  </ion-grid>
 </ion-content>
