@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Browser } from '@capacitor/browser';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { AlertController } from '@ionic/angular';
 import { base_URL } from 'src/app/app-constant';
@@ -40,7 +41,7 @@ export class DocumentUploadPage implements OnInit {
     this.getUserDocs();
   }
 
-  b64toBlob(dataURI: string) {
+  b64toBlob(dataURI: string, isPdf: boolean = false) {
     
     var byteString = atob(dataURI.split(',')[1]);
     var ab = new ArrayBuffer(byteString.length);
@@ -49,7 +50,7 @@ export class DocumentUploadPage implements OnInit {
     for (var i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
     }
-    return new Blob([ab], { type: 'image/jpeg' });
+    return new Blob([ab], { type: isPdf ? 'application/pdf' : 'image/jpeg' });
 }
 
   async uploadImage(type: string) {
@@ -113,7 +114,8 @@ export class DocumentUploadPage implements OnInit {
     await alert.present();
   }
 
-  saveImage() {
+  async saveImage() {
+    await this.alertService.presentLoader('');
     let formData: FormData = new FormData(); 
     formData.append('ud_id', this.userData.e_id); 
     formData.append('user_id', this.userData.e_id);
@@ -134,7 +136,12 @@ export class DocumentUploadPage implements OnInit {
       formData.append('pan_back', blob, 'pan_back.jpeg')
     } 
 
-    this.httpService.post(`upload_doc.php`, formData).subscribe(res => {
+    if(this.isBankStatementUp) {
+      let blob = this.b64toBlob(this.bankStatement, true);
+      formData.append('bank_statement', blob, 'bank_statement.pdf')
+    }
+
+    this.httpService.post(`upload_doc.php`, formData).subscribe(async res => {
       console.log('res: ', res);
       this.getUserDocs();
       this.alertService.presentToast("Upload doc successfully");
@@ -142,8 +149,11 @@ export class DocumentUploadPage implements OnInit {
       this.isAadharFrontUp = false;
       this.isPanCardBackUp = false;
       this.isPanCardFrontUp = false;
-    }, (err) => {
+      this.isBankStatementUp = false;
+      await this.alertService.dismissLoader();
+    }, async (err) => {
       console.log('err: ', err);
+      await this.alertService.dismissLoader();
     })
   }
 
@@ -151,17 +161,42 @@ export class DocumentUploadPage implements OnInit {
   getUserDocs() {
     this.httpService.get('list_userdoc.php').subscribe(res => {
       let specificUserDocs = res.items.find((item: any) => {return (item.user_id === this.userData.e_id && item.ud_id === this.userData.e_id)});
+      console.log('specificUserDocs: ', specificUserDocs);
 
       if(specificUserDocs) {
         if(specificUserDocs.adhar_front) this.aadharFront = `${base_URL}upload/${specificUserDocs.adhar_front}`
         if(specificUserDocs.adhar_back) this.aadharBack = `${base_URL}upload/${specificUserDocs.adhar_back}`
         if(specificUserDocs.pan_front) this.panCardFront = `${base_URL}upload/${specificUserDocs.pan_front}`
         if(specificUserDocs.pan_back) this.panCardBack = `${base_URL}upload/${specificUserDocs.pan_back}`
-        if(specificUserDocs.bank_statement) this.bankStatement = `${base_URL}upload/${specificUserDocs.bank_statement}`
+        if(specificUserDocs.bank_statement) {
+          this.bankStatement = `${base_URL}upload/${specificUserDocs.bank_statement}`
+          this.imageName = `Filename: -${specificUserDocs.bank_statement}`
+          console.log('this.imageName: ', this.imageName);
+        } 
       }
 
     }, (err) => {
       console.log('err: ', err);
     })
+  }
+
+  imageName: string = '';
+  // --- get teammate logo
+  getImage(ev: any) {
+    console.log('ev: ', ev);
+    if(ev.target.files.length > 0) {
+      this.imageName = ev.target.files[0].name
+      console.log('this.imageName: ', this.imageName);
+      let reader = new FileReader();
+      reader.onload = (event:any) => {
+        this.bankStatement = event.target.result;
+        this.isBankStatementUp = true;
+      }
+      reader.readAsDataURL(ev.target.files[0]);
+    }
+  }
+
+  viewDocFile() {
+    Browser.open({url: this.bankStatement})
   }
 }

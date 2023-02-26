@@ -41,3 +41,18 @@
   height: 100%;
   object-fit: contain;
 }
+
+.select-image {
+  position: absolute;
+  top: 12px;
+  right: 5px;
+  height: 36px;
+  width: 79%;
+  opacity: 0;
+}
+
+.browse-image {
+  padding: 0px 9px !important;
+  text-transform: capitalize;
+  margin-top: 7px;
+}
