@@ -25,7 +25,7 @@ export class IncomeExpensePage implements OnInit {
     private httpService: HttpService,
     private commonService: CommonService
   ) { 
-    this.currentDate = moment().year()+'-'+this.minTwoDigits(moment().month())
+    this.currentDate = moment().year()+'-'+this.minTwoDigits((moment().month() + 1))
   }
 
   minTwoDigits(n: any) {
