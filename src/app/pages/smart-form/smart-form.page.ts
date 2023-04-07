@@ -70,14 +70,14 @@ export class SmartFormPage implements OnInit {
         this.alertService.presentLoader('');
         this.httpService.post("add_customer_income.php", income).subscribe(res => {
           this.alertService.dismissLoader();
-          this.modalCtrl.dismiss();
+          this.modalCtrl.dismiss({type: "income"});
         }, async (err) => {
           this.alertService.dismissLoader();
           this.modalCtrl.dismiss();
           this.alertService.presentAlert(err);
         })
       } else {
-        let expence = {
+        let expense = {
           c_client_id: this.commonService.userData.e_id,
           c_income_id: this.category,
           c_amount: this.amount,
@@ -85,9 +85,9 @@ export class SmartFormPage implements OnInit {
         };
 
         await this.alertService.presentLoader('');
-        this.httpService.post("add_customer_expense.php", expence).subscribe( res => {
+        this.httpService.post("add_customer_expense.php", expense).subscribe( res => {
            this.alertService.dismissLoader();
-           this.modalCtrl.dismiss();
+           this.modalCtrl.dismiss({type: "expense"});
         }, async (err) => {
            this.alertService.dismissLoader();
            this.modalCtrl.dismiss();

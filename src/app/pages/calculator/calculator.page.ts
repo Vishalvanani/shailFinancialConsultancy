@@ -35,11 +35,11 @@ export class CalculatorPage implements OnInit {
       icon: "../../assets/imgs/loan.png",
       route: "loan-calculator"
     },
-    {
-      title: "Insurance Calculator",
-      icon: "../../assets/imgs/insurance.png",
-      route: "insurance-calculator"
-    }
+    // {
+    //   title: "Insurance Calculator",
+    //   icon: "../../assets/imgs/insurance.png",
+    //   route: "insurance-calculator"
+    // }
   ]
 
   constructor(

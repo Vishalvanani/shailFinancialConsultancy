@@ -10,7 +10,7 @@
 <ion-content>
   <ion-item>
     <ion-label position="stacked">Date</ion-label>
-    <ion-input type="month" [value]="currentDate"></ion-input>
+    <ion-input type="month" [(ngModel)]="currentDate" (ionChange)="changeMonth()"></ion-input>
   </ion-item>
   
   <ion-item class="ion-no-padding" style="border-top: 2px solid #999;">
@@ -20,16 +20,16 @@
     </ion-row>
   </ion-item>
 
-  <ion-item class="ion-no-padding" *ngFor="let x of incomeArray; let i = index">
+  <ion-item class="ion-no-padding" *ngFor="let incomeObj of selectedMonthIncomeList; let i = index">
     <ion-row class="subAmount">
       <ion-col size="8" style="padding-left:15px">
         <div *ngFor="let incomeCategory of incomeCategoryList;let i=index">
-          <p style="margin: 0px !important;" *ngIf="incomeCategory.income_id === x.category">{{incomeCategory.income_category}}</p>
-          <p style="margin: 0px !important;" *ngIf="!x.category && i == 0">-</p>
+          <p style="margin: 0px !important;" *ngIf="incomeCategory.income_id === incomeObj.income_id">{{incomeCategory.income_category}}</p>
+          <p style="margin: 0px !important;" *ngIf="!incomeObj.income_id && i == 0">-</p>
         </div>
       </ion-col>
-      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit', x, i)"></ion-icon></ion-col>
-      <ion-col size="3" class="ion-text-end">{{ x.amount }}</ion-col>
+      <!-- <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit', incomeObj, i)"></ion-icon></ion-col> -->
+      <ion-col size="4" class="ion-text-end">{{ incomeObj.amount }}</ion-col>
     </ion-row>
   </ion-item>
  
@@ -40,16 +40,16 @@
     </ion-row>
   </ion-item>
 
-  <ion-item class="ion-no-padding" *ngFor="let x of expenseArray; let i = index">
+  <ion-item class="ion-no-padding" *ngFor="let expenseObj of selectedMonthExpenseList; let i = index">
     <ion-row class="subAmount">
       <ion-col size="8" style="padding-left:15px">
         <div *ngFor="let expenseCategory of expenseCategoryList;let i=index">
-          <p style="margin: 0px !important;" *ngIf="expenseCategory.expense_id === x.category">{{expenseCategory.expense_category}}</p>
-          <p style="margin: 0px !important;" *ngIf="!x.category && i == 0">-</p>
+          <p style="margin: 0px !important;" *ngIf="expenseCategory.expense_id === expenseObj.c_income_id">{{expenseCategory.expense_category}}</p>
+          <p style="margin: 0px !important;" *ngIf="!expenseObj.c_income_id && i == 0">-</p>
         </div>
       </ion-col>
-      <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit', x, i)"></ion-icon></ion-col>
-      <ion-col size="3" class="ion-text-end">{{ x.amount }}</ion-col>
+      <!-- <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit', x, i)"></ion-icon></ion-col> -->
+      <ion-col size="4" class="ion-text-end">{{ expenseObj.c_amount }}</ion-col>
     </ion-row>
   </ion-item>
   
