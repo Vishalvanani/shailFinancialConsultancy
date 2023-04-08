@@ -32,7 +32,9 @@ export class AlertService {
   public dismissLoader() {
     this.loadingCtrl
       .dismiss()
-      .then((response) => {})
+      .then((response) => {
+        console.log("loader dismiss");
+      })
       .catch((err) => {
         console.log('Error occurred : ', err);
       });

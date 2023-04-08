@@ -66,6 +66,14 @@ const routes: Routes = [
   {
     path: 'edit-profile',
     loadChildren: () => import('./pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
+  {
+    path: 'about-us',
+    loadChildren: () => import('./pages/about-us/about-us.module').then( m => m.AboutUsPageModule)
+  },
+  {
+    path: 'folder/download-document',
+    loadChildren: () => import('./pages/download-document/download-document.module').then( m => m.DownloadDocumentPageModule)
   }
 
 

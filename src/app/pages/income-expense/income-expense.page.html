@@ -44,8 +44,8 @@
     <ion-row class="subAmount">
       <ion-col size="8" style="padding-left:15px">
         <div *ngFor="let expenseCategory of expenseCategoryList;let i=index">
-          <p style="margin: 0px !important;" *ngIf="expenseCategory.expense_id === expenseObj.c_income_id">{{expenseCategory.expense_category}}</p>
-          <p style="margin: 0px !important;" *ngIf="!expenseObj.c_income_id && i == 0">-</p>
+          <p style="margin: 0px !important;" *ngIf="expenseCategory.expense_id === expenseObj.c_expense_id">{{expenseCategory.expense_category}}</p>
+          <p style="margin: 0px !important;" *ngIf="!expenseObj.c_expense_id && i == 0">-</p>
         </div>
       </ion-col>
       <!-- <ion-col size="1" class="ion-text-end vertical_centr"><ion-icon name="create" (click)="presentSmartPopup('edit', x, i)"></ion-icon></ion-col> -->

@@ -17,7 +17,7 @@ import * as moment from 'moment';
 export class AppComponent {
   public appPages = [
     { title: 'Home', url: '', icon: 'home' },
-    { title: 'About Us', url: '/folder/aboutUs', icon: 'mail' },
+    { title: 'About Us', url: '/about-us', icon: 'mail' },
     { title: 'Download', url: '/folder/download', icon: 'download-outline' },
     { title: 'Payment Info', url: '/folder/payment-info', icon: 'information-circle-outline' },
     { title: 'Logout', url: '/folder/logout', icon: 'log-out-outline' }
@@ -121,45 +121,48 @@ export class AppComponent {
   async selectIndex(p: any) {
     console.log('p: ', p);
     if(p.url == "/folder/download") {
-      if(!this.commonService.userData) {
-        this.alertService.presentAlert("Something went wrong. please try again later!");
-        return;
-      }
-      await this.alertService.presentLoader("");
-      this.httpService.get(`list_files.php?client_id=${this.commonService.userData.e_id}`).subscribe(async res => {
-        await this.alertService.dismissLoader();
+      this.router.navigate(['/folder/download-document']);
+      // if(!this.commonService.userData) {
+      //   this.alertService.presentAlert("Something went wrong. please try again later!");
+      //   return;
+      // }
+      // await this.alertService.presentLoader("");
+      // this.httpService.get(`list_files.php?client_id=${this.commonService.userData.e_id}`).subscribe(async res => {
+      //   await this.alertService.dismissLoader();
 
-        // Handle Error
-        if(!res || res.items.length == 0) {
-          await this.alertService.presentAlert("No record found!");  
-          return
-        }
+      //   // Handle Error
+      //   if(!res || res.items.length == 0) {
+      //     await this.alertService.presentAlert("No record found!");  
+      //     return
+      //   }
 
-        let path = res.items[0].pdf_location;
-        this.toDataUrl(path, async (base64: any) => {
-          await Filesystem.writeFile({
-            path: `${moment().valueOf()}.pdf`,
-            data: base64,
-            directory: Directory.Documents
-          }).then(res => {
-            console.log('res: ', res);
-            this.alertService.presentToast("Document Download Successfully.")
-          }, async (err) => {
-            console.log('err: ', err);
-            await this.alertService.dismissLoader();
-            await this.alertService.presentAlert(err.message);
-          })
-        })
-      }, async (err) => {
-        await this.alertService.dismissLoader();
-        await this.alertService.presentAlert(err.message);
-      })
+      //   let path = res.items[0].pdf_location;
+      //   this.toDataUrl(path, async (base64: any) => {
+      //     await Filesystem.writeFile({
+      //       path: `${moment().valueOf()}.pdf`,
+      //       data: base64,
+      //       directory: Directory.Documents
+      //     }).then(res => {
+      //       console.log('res: ', res);
+      //       this.alertService.presentToast("Document Download Successfully.")
+      //     }, async (err) => {
+      //       console.log('err: ', err);
+      //       await this.alertService.dismissLoader();
+      //       await this.alertService.presentAlert(err.message);
+      //     })
+      //   })
+      // }, async (err) => {
+      //   await this.alertService.dismissLoader();
+      //   await this.alertService.presentAlert(err.message);
+      // })
     } else if(p.url == '/folder/payment-info') {
-      this.router.navigate(['/folder/payment-info']);
+      this.router.navigate([p.url]);
     } else if(p.url == '') {
       this.router.navigate(['']);
     } else if(p.url == '/folder/logout') {
       this.logout();
+    } else if(p.url == '/about-us') {
+      this.router.navigate(['/about-us']);
     }
     setTimeout(() => {
       this.getSelectedIndex();

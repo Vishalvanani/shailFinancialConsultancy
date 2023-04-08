@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="main-title">Document</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <iframe [src]="fileUrl | safe" style="width: 100%;height: 100%;"></iframe> -->
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button type="button" (click)="openDocument()" class="document-btn">Open Document</ion-button>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-button type="button" (click)="downloadDocument()" class="document-btn">Download Document</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
