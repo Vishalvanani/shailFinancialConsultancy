@@ -16,28 +16,25 @@ export class AlertService {
     public alertCtrl: AlertController
   ) {}
 
-  async presentLoader(message: string) {
-    this.loadingCtrl
-      .create({
-        message,
-        duration: 8000,
+  isLoading: boolean = false;
+  public async presentLoader(message: string) {
+    if (!this.isLoading) {
+      this.isLoading = true;
+      let loader = await this.loadingCtrl.create({
+        message: message,
         backdropDismiss: true,
-        mode: 'ios',
-      })
-      .then((res) => {
-        res.present();
+        mode: 'ios'
       });
+      return await loader.present();
+    }
   }
 
-  public dismissLoader() {
-    this.loadingCtrl
-      .dismiss()
-      .then((response) => {
-        console.log("loader dismiss");
-      })
-      .catch((err) => {
-        console.log('Error occurred : ', err);
-      });
+  public async dismissLoader() {
+    if (this.isLoading) {
+      this.isLoading = false;
+      return await this.loadingCtrl.dismiss();
+    }
+    return;
   }
 
   // --- present toast

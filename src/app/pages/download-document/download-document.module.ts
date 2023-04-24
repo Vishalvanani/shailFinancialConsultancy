@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { DownloadDocumentPageRoutingModule } from './download-document-routing.module';
 
-import { DownloadDocumentPage, SafePipe } from './download-document.page';
+import { DownloadDocumentPage } from './download-document.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { DownloadDocumentPage, SafePipe } from './download-document.page';
     IonicModule,
     DownloadDocumentPageRoutingModule
   ],
-  declarations: [DownloadDocumentPage, SafePipe]
+  declarations: [DownloadDocumentPage]
 })
 export class DownloadDocumentPageModule {}

@@ -8,7 +8,7 @@
     <ion-title>Add record</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment value="income" [(ngModel)]="type">
+    <ion-segment value="income" [(ngModel)]="mode">
       <ion-segment-button value="income">
         <ion-label>Income</ion-label>
       </ion-segment-button>
@@ -21,10 +21,10 @@
 
 <ion-content>
   <ion-item>
-    <ion-select *ngIf="type == 'income'" placeholder="Category" [(ngModel)]="category">
+    <ion-select *ngIf="mode == 'income'" placeholder="Category" [(ngModel)]="category">
       <ion-select-option *ngFor="let incomeCategory of incomeCategoryList" [value]="incomeCategory.income_id">{{incomeCategory.income_category}}</ion-select-option>
     </ion-select>
-    <ion-select *ngIf="type == 'expense'" placeholder="Category" [(ngModel)]="category">
+    <ion-select *ngIf="mode == 'expense'" placeholder="Category" [(ngModel)]="category">
       <ion-select-option *ngFor="let expenseCategory of expenseCategoryList" [value]="expenseCategory.expense_id">{{expenseCategory.expense_category}}</ion-select-option>
     </ion-select>
   </ion-item>

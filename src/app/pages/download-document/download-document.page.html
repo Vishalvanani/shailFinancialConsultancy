@@ -8,16 +8,20 @@
 </ion-header>
 
 <ion-content>
-  <!-- <iframe [src]="fileUrl | safe" style="width: 100%;height: 100%;"></iframe> -->
-
   <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button type="button" (click)="openDocument()" class="document-btn">Open Document</ion-button>
+    <ion-row *ngIf="isFileAvailable">
+      <ion-col size="12" style="display: flex;justify-content: center;">
+        <img src="../../../assets/imgs/pdf.png">
       </ion-col>
 
       <ion-col size="12">
         <ion-button type="button" (click)="downloadDocument()" class="document-btn">Download Document</ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row *ngIf="!isFileAvailable">
+      <ion-col size="12" style="display: flex;justify-content: center;">
+        <p>File not found!</p>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -42,7 +42,6 @@ export class IncomeExpensePage implements OnInit {
     return new Promise((resolve, reject) => {
       this.httpService.get("list_income.php").subscribe(res => {
         this.incomeCategoryList = res.items;
-        console.log('this.incomeCategoryList: ', this.incomeCategoryList);
         resolve('');
       }, (err) => {
         this.incomeCategoryList = [];
@@ -69,7 +68,6 @@ export class IncomeExpensePage implements OnInit {
     return new Promise((resolve, reject) => {
       this.httpService.get(`list_customer_incom_expense.php?client_id=${this.commonService.userData.e_id}`).subscribe(res => {
         this.userIncomeList = res.items;
-        console.log('this.userIncomeList: ', this.userIncomeList);
         resolve('');
       }, (err) => {
         this.userIncomeList = [];
@@ -82,7 +80,6 @@ export class IncomeExpensePage implements OnInit {
     return new Promise((resolve, reject) => {
       this.httpService.get(`list_customer_expense.php?c_client_id=${this.commonService.userData.e_id}`).subscribe(res => {
         this.userExpenseList = res.items;
-        console.log('this.userExpenseList: ', this.userExpenseList);
         resolve('');
       }, (err) => {
         this.userExpenseList = [];
@@ -118,18 +115,17 @@ export class IncomeExpensePage implements OnInit {
     this.changeMonth();
   }
 
-  async presentSmartPopup(type: string, data?: any, index?: number) {
+  async presentSmartPopup(type: string, data?: any, isIncome: boolean = false) {
     const modal = await this.modalCtrl.create({
       component: SmartFormPage,
       componentProps: {
-        'type': type,
-        'data': data,
-        'index': index
+        type: type,
+        data: data,
+        isIncome: isIncome
       }
     });
 
     modal.onDidDismiss().then(async (modelData) => {
-      console.log('modelData: ', modelData);
       if (modelData !== null) {
         if (modelData.data && modelData.data) {
           if(modelData.data.type) {
@@ -159,11 +155,8 @@ export class IncomeExpensePage implements OnInit {
       let itemDate = Number(moment(ele.date, "YYYY-MM-DD").format("x"))
       return ((itemDate >= monthStartDate) && (itemDate <= monthEndDate))
     })
-
-    this.totalIncome = 0;
-    for (var i in this.selectedMonthIncomeList) {
-      this.totalIncome += parseInt(this.selectedMonthIncomeList[i].amount);
-    }
+    
+    this.prepareIncomeAmount();
 
     // Selected Month Expense List
     this.selectedMonthExpenseList = this.userExpenseList.filter(ele => {
@@ -171,9 +164,67 @@ export class IncomeExpensePage implements OnInit {
       return ((itemDate >= monthStartDate) && (itemDate <= monthEndDate))
     })
     console.log('this.selectedMonthExpenseList: ', this.selectedMonthExpenseList);
+    this.prepareExpenseAmount();
+  }
+
+  async removeIncome(obj: any, isIncome: boolean = false) {
+    let res = await this.alertService.confirm("Are you sure you want to remove this data?", "Confirmation", "Yes", "No")
+    if(res) {
+      await this.alertService.presentLoader("");
+      if(isIncome) {
+        await this.deleteUserIncome(obj.c_i_id);
+      } else {
+        await this.deleteUserExpense(obj.c_e_id);
+      }
+    }
+  }
+
+  prepareExpenseAmount() {
     this.totalExpense = 0;
     for (var i in this.selectedMonthExpenseList) {
       this.totalExpense += parseInt(this.selectedMonthExpenseList[i].c_amount);
     }
   }
+
+  prepareIncomeAmount() {
+    this.totalIncome = 0;
+    for (var i in this.selectedMonthIncomeList) {
+      this.totalIncome += parseInt(this.selectedMonthIncomeList[i].amount);
+    }
+
+  }
+
+  deleteUserIncome(incomeId: number) {
+    return new Promise(async (resolve, reject) => {
+      this.httpService.get(`delete_customer_income.php?c_i_id=${incomeId}`).subscribe(async res => {
+        this.selectedMonthIncomeList = this.selectedMonthIncomeList.filter(ele => {return ele.c_i_id != incomeId});
+        this.userIncomeList = this.userIncomeList.filter(ele => {return ele.c_i_id != incomeId});
+        this.prepareIncomeAmount();
+        await this.alertService.dismissLoader();
+        resolve('');
+      }, async (err) => {
+        await this.alertService.dismissLoader();
+        await this.alertService.presentAlert(err.message)
+        reject(err)
+      })
+    })
+  }
+
+  deleteUserExpense(expenseID: number) {
+    return new Promise((resolve, reject) => {
+      this.httpService.get(`delete_customer_expense.php?c_e_id=${expenseID}`).subscribe(async res => {
+        this.selectedMonthExpenseList = this.selectedMonthExpenseList.filter(ele => {return ele.c_e_id != expenseID});
+        this.userExpenseList = this.userExpenseList.filter(ele => {return ele.c_e_id != expenseID});
+        this.prepareExpenseAmount();
+        await this.alertService.dismissLoader();
+        resolve('');
+      }, async (err) => {
+        await this.alertService.dismissLoader();
+        await this.alertService.presentAlert(err.message)
+        reject(err)
+      })
+    })
+  }
+
+  
 }

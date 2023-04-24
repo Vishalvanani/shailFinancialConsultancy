@@ -1,6 +1,4 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Browser } from '@capacitor/browser';
+import { Component, OnInit } from '@angular/core';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import * as moment from 'moment';
 import { AlertService } from 'src/app/provider/alert.service';
@@ -13,11 +11,12 @@ import { HttpService } from 'src/app/provider/http.service';
   styleUrls: ['./download-document.page.scss'],
 })
 export class DownloadDocumentPage implements OnInit {
+  isFileAvailable: boolean = false;
+  isShow: boolean = false;
   constructor(
     private commonService: CommonService,
     private alertService: AlertService,
-    private httpService: HttpService,
-    protected _sanitizer: DomSanitizer
+    private httpService: HttpService
   ) {}
 
   fileUrl: string = '';
@@ -45,6 +44,8 @@ export class DownloadDocumentPage implements OnInit {
           let path = res.items[0].pdf_location;
           this.fileUrl = path;
           console.log('this.fileUrl: ', this.fileUrl);
+          this.isFileAvailable = true;
+          this.isShow = true;
         },
         async (err) => {
           await this.alertService.dismissLoader();
@@ -67,10 +68,6 @@ export class DownloadDocumentPage implements OnInit {
     xhr.send();
   }
 
-  openDocument() {
-    Browser.open({url: this.fileUrl})
-  }
-
   downloadDocument() {
     this.toDataUrl(this.fileUrl, async (base64: any) => {
       await Filesystem.writeFile({
@@ -89,13 +86,5 @@ export class DownloadDocumentPage implements OnInit {
         }
       );
     });
-  }
-}
-
-@Pipe({ name: 'safe' })
-export class SafePipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) {}
-  transform(url: string) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

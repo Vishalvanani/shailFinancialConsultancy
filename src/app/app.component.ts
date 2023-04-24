@@ -47,10 +47,8 @@ export class AppComponent {
     private httpService: HttpService
   ) {
     this.platform.backButton.subscribeWithPriority(10, async (res) => {
-      console.log('res: subscribeWithPriority', res);
       await this.getUserDataFromStorage();
       
-      console.log('this._location.isCurrentPathEqualTo: ', this._location.isCurrentPathEqualTo);
       if(this._location.isCurrentPathEqualTo("/signup") && !this.commonService.userData) { 
         this.showExitConfirm();
         return;
@@ -119,42 +117,8 @@ export class AppComponent {
 }
 
   async selectIndex(p: any) {
-    console.log('p: ', p);
     if(p.url == "/folder/download") {
       this.router.navigate(['/folder/download-document']);
-      // if(!this.commonService.userData) {
-      //   this.alertService.presentAlert("Something went wrong. please try again later!");
-      //   return;
-      // }
-      // await this.alertService.presentLoader("");
-      // this.httpService.get(`list_files.php?client_id=${this.commonService.userData.e_id}`).subscribe(async res => {
-      //   await this.alertService.dismissLoader();
-
-      //   // Handle Error
-      //   if(!res || res.items.length == 0) {
-      //     await this.alertService.presentAlert("No record found!");  
-      //     return
-      //   }
-
-      //   let path = res.items[0].pdf_location;
-      //   this.toDataUrl(path, async (base64: any) => {
-      //     await Filesystem.writeFile({
-      //       path: `${moment().valueOf()}.pdf`,
-      //       data: base64,
-      //       directory: Directory.Documents
-      //     }).then(res => {
-      //       console.log('res: ', res);
-      //       this.alertService.presentToast("Document Download Successfully.")
-      //     }, async (err) => {
-      //       console.log('err: ', err);
-      //       await this.alertService.dismissLoader();
-      //       await this.alertService.presentAlert(err.message);
-      //     })
-      //   })
-      // }, async (err) => {
-      //   await this.alertService.dismissLoader();
-      //   await this.alertService.presentAlert(err.message);
-      // })
     } else if(p.url == '/folder/payment-info') {
       this.router.navigate([p.url]);
     } else if(p.url == '') {
@@ -170,9 +134,7 @@ export class AppComponent {
   }
 
   getSelectedIndex() {
-    console.log('this.appPages: ', this.appPages);
     const path = window.location.pathname.split('folder/')[1];
-    console.log('path: ', path);
     if (path) {
       this.alertService.selectedIndex = this.appPages.findIndex(
         (page) => page.url.toLowerCase() === `/folder/${path.toLowerCase()}` 
@@ -215,8 +177,6 @@ export class AppComponent {
 
   async getUserDataFromStorage() {
     let userData: any = await Preferences.get({key: "userData"})
-    console.log('userData: ', userData);
     if(userData && userData.value) this.commonService.userData = JSON.parse(userData.value);
-    console.log('this.commonService.userData: ', this.commonService.userData);
   }
 }
