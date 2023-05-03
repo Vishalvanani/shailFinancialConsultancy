@@ -24,7 +24,8 @@
         <h4 style="font-weight: bold;">Videos</h4>
       </ion-col>
 
-      <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }" style="width: 980px;height: auto;overflow: scroll;-webkit-overflow-scrolling: touch;">
+      <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }" 
+        style="width: 980px;height: auto;overflow: scroll;-webkit-overflow-scrolling: touch;">
         <ion-slide *ngFor="let video of videoList" style="width: 235px;margin-right: 10px;">
           <ion-col style="padding: 0px;">
             <ion-card style="margin: 0px !important;">

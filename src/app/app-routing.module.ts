@@ -8,7 +8,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: 'folder/home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
@@ -75,14 +75,6 @@ const routes: Routes = [
     path: 'folder/download-document',
     loadChildren: () => import('./pages/download-document/download-document.module').then( m => m.DownloadDocumentPageModule)
   }
-
-
-
-
-
-
-
-
 ];
 
 @NgModule({

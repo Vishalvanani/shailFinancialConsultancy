@@ -26,20 +26,19 @@ export class SignupPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-
-    let userData: any = await Preferences.get({key: "userData"})
-    if(userData && userData.value) {
+    let userData: any = await Preferences.get({ key: 'userData' });
+    if (userData && userData.value) {
       this.commonService.userData = JSON.parse(userData.value);
     } else {
-      this.router.navigate(['signup'], { queryParams: { isUserLoggedin: "" } })
+      this.router.navigate(['signup'], { queryParams: { isUserLoggedin: '' } });
     }
 
-    this.isUserLoggedin = this.route.snapshot.queryParamMap.get('isUserLoggedin');
+    this.isUserLoggedin =
+      this.route.snapshot.queryParamMap.get('isUserLoggedin');
     console.log('this.isUserLoggedin: ', this.isUserLoggedin);
-    if(!this.isUserLoggedin) {
-      console.log("30");
-      this.signIn()
-    } 
+    if (!this.isUserLoggedin) {
+      this.signIn();
+    }
   }
 
   async checkValidation() {
@@ -67,20 +66,40 @@ export class SignupPage implements OnInit {
         e_name: this.account.name,
         e_mob: this.account.mobile,
         user_id: this.account.email,
-        password: this.account.password
-      }
+        password: this.account.password,
+      };
 
-      this.httpService.post('add_employee.php', obj).subscribe(res => {
-        Preferences.set({ key: "userData", value: JSON.stringify(this.account)});
-        this.alertService.presentToast("User Signup Success")
-        this.alertService.dismissLoader();
-        this.router.navigate(['']);
-        this.commonService.userData = this.account;
-      }, (err) => {
-        this.alertService.dismissLoader();
-        this.alertService.presentAlert(err.message);
-      })
-
+      this.httpService.post('add_employee.php', obj).subscribe(
+        (res) => {
+          console.log('res: ', res);
+          this.userService.fetchUserInfo(res.insertid).subscribe(
+            async (userInfoRes) => {
+              await this.alertService.dismissLoader();
+              if (
+                userInfoRes &&
+                userInfoRes.items &&
+                userInfoRes.items.length > 0
+              ) {
+                this.alertService.presentToast('User Signup Success');
+                this.commonService.userData = userInfoRes.items[0];
+                Preferences.set({
+                  key: 'userData',
+                  value: JSON.stringify(userInfoRes.items[0]),
+                });
+                this.router.navigate(['']);
+              }
+            },
+            (err) => {
+              this.alertService.dismissLoader();
+              this.alertService.presentAlert(err.message);
+            }
+          );
+        },
+        (err) => {
+          this.alertService.dismissLoader();
+          this.alertService.presentAlert(err.message);
+        }
+      );
     }
   }
 
@@ -109,36 +128,45 @@ export class SignupPage implements OnInit {
       await this.alertService.presentLoader('');
 
       try {
-        let formData: FormData = new FormData(); 
-        formData.append('user_id', this.signInObj.email); 
-        formData.append('password', this.signInObj.password); 
-        this.httpService
-        .post(
-          `emp_login.php`, formData
-          )
-          .subscribe(async (data) => {
+        let formData: FormData = new FormData();
+        formData.append('user_id', this.signInObj.email);
+        formData.append('password', this.signInObj.password);
+        this.httpService.post(`emp_login.php`, formData).subscribe(
+          async (data) => {
             console.log('data: ', data);
 
             // fetch user info and save into local storage
-            this.userService.fetchUserInfo(data.userid).subscribe(async userInfoRes => {
-              await this.alertService.dismissLoader();
-              if(userInfoRes && userInfoRes.items && userInfoRes.items.length > 0) { 
-                this.commonService.userData = userInfoRes.items[0];
-                Preferences.set({ key: "userData", value: JSON.stringify(userInfoRes.items[0])});
-                this.router.navigate(['']);
-              } else {
-                this.alertService.presentAlert("User not found!");
+            this.userService.fetchUserInfo(data.userid).subscribe(
+              async (userInfoRes) => {
+                await this.alertService.dismissLoader();
+                if (
+                  userInfoRes &&
+                  userInfoRes.items &&
+                  userInfoRes.items.length > 0
+                ) {
+                  this.commonService.userData = userInfoRes.items[0];
+                  Preferences.set({
+                    key: 'userData',
+                    value: JSON.stringify(userInfoRes.items[0]),
+                  });
+                  this.router.navigate(['']);
+                } else {
+                  this.alertService.presentAlert('User not found!');
+                }
+              },
+              async (err) => {
+                console.log('err: ', err);
+                this.alertService.presentAlert(err.error.message);
+                await this.alertService.dismissLoader();
               }
-            }, async (err) => {
-              console.log('err: ', err);
-              this.alertService.presentAlert(err.error.message);
-              await this.alertService.dismissLoader();
-            })
-          }, async (err) => {
+            );
+          },
+          async (err) => {
             console.log('err: ', err);
             this.alertService.presentAlert(err.error.message);
             await this.alertService.dismissLoader();
-          });
+          }
+        );
       } catch (err: any) {
         this.alertService.presentAlert(err.message);
         await this.alertService.dismissLoader();

@@ -34,20 +34,26 @@ export class DownloadDocumentPage implements OnInit {
         async (res) => {
           console.log('res: 35', res);
           this.alertService.dismissLoader();
-
-          // Handle Error
-          if (!res || res.items.length == 0) {
-            await this.alertService.presentAlert('No record found!');
-            return;
+          if(res.message) {
+            this.isFileAvailable = false;
+            this.isShow = true;
+          } else {
+            // Handle Error
+            if (!res || res.items.length == 0) {
+              await this.alertService.presentAlert('No record found!');
+              return;
+            }
+  
+            let path = res.items[0].pdf_location;
+            this.fileUrl = path;
+            console.log('this.fileUrl: ', this.fileUrl);
+            this.isFileAvailable = true;
+            this.isShow = true;
           }
 
-          let path = res.items[0].pdf_location;
-          this.fileUrl = path;
-          console.log('this.fileUrl: ', this.fileUrl);
-          this.isFileAvailable = true;
-          this.isShow = true;
         },
         async (err) => {
+          console.log('err: ', err);
           await this.alertService.dismissLoader();
           await this.alertService.presentAlert(err.message);
         }

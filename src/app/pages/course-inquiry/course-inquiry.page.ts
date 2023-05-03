@@ -3,6 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/provider/alert.service';
 import * as dayjs from 'dayjs'
 import { HttpService } from 'src/app/provider/http.service';
+import { Preferences } from '@capacitor/preferences';
+import { CommonService } from 'src/app/provider/common.service';
 
 @Component({
   selector: 'app-course-inquiry',
@@ -15,10 +17,16 @@ export class CourseInquiryPage implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private alertService: AlertService,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private commonService: CommonService
   ) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    if(this.commonService.userData) {
+      this.inquiryForm.name = this.commonService.userData.e_name;
+      this.inquiryForm.mobile = this.commonService.userData.e_mob;
+    }
+  }
 
   async closeModel() {
     const close: string = 'Modal Removed';

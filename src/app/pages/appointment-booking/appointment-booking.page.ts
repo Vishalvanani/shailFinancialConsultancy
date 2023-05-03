@@ -19,7 +19,13 @@ export class AppointmentBookingPage {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.commonService.userData) {
+      this.appointment.name = this.commonService.userData.e_name;
+      this.appointment.mobile = this.commonService.userData.e_mob;
+      this.appointment.email = this.commonService.userData.user_id
+    }
+  }
 
   async checkValidation() {
     let errorMsg = '';
