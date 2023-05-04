@@ -35,7 +35,6 @@ export class SignupPage implements OnInit {
 
     this.isUserLoggedin =
       this.route.snapshot.queryParamMap.get('isUserLoggedin');
-    console.log('this.isUserLoggedin: ', this.isUserLoggedin);
     if (!this.isUserLoggedin) {
       this.signIn();
     }
@@ -149,7 +148,11 @@ export class SignupPage implements OnInit {
                     key: 'userData',
                     value: JSON.stringify(userInfoRes.items[0]),
                   });
+                  this.commonService.mainPageCategory = this.commonService.cloneMainPageCategory;
                   this.router.navigate(['']);
+                  this.commonService.appPages = this.commonService.cloneAppPages.filter((ele) => {
+                    return ele.title != 'Login' && ele.title != 'Signup';
+                  });
                 } else {
                   this.alertService.presentAlert('User not found!');
                 }

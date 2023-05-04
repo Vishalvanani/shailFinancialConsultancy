@@ -13,41 +13,20 @@ import { HttpService } from 'src/app/provider/http.service';
 export class HomePage implements OnInit {
   videoList: any[] = [];
 
-  mainPageCategory: any[] = [
-    {
-      title: 'Calculator',
-      icon: '../../assets/imgs/calculator.png',
-      route: 'calculator',
-    },
-    {
-      title: 'Courses',
-      icon: '../../assets/imgs/courses.png',
-      route: 'courses',
-    },
-    {
-      title: 'Income/Expense Manager',
-      icon: '../../assets/imgs/iemanager.png',
-      route: 'income-expense',
-    },
-    {
-      title: 'Appointment Booking',
-      icon: '../../assets/imgs/appointment.png',
-      route: 'appointment-booking',
-    },
-  ];
+ 
 
   constructor(
     private router: Router,
     private httpService: HttpService,
     private alertService: AlertService,
-    private commonService: CommonService
+    public commonService: CommonService
   ) {}
 
   async ngOnInit() {
     await this.alertService.presentLoader('');
 
     if(!this.commonService.userData) {
-      this.mainPageCategory = this.mainPageCategory.filter(ele => {return ele.route != 'income-expense'})
+      this.commonService.mainPageCategory = this.commonService.cloneMainPageCategory.filter(ele => {return ele.route != 'income-expense'})
     }
 
     await this.fetchVideoList();

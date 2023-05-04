@@ -6,26 +6,12 @@ import { Location } from '@angular/common';
 import { Preferences } from '@capacitor/preferences';
 import { CommonService } from './provider/common.service';
 import { MenuController } from '@ionic/angular';
-import { HttpService } from './provider/http.service';
-import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
-import * as moment from 'moment';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Home', url: '', icon: 'home' },
-    { title: 'About Us', url: '/about-us', icon: 'mail' },
-    { title: 'Download', url: '/folder/download', icon: 'download-outline' },
-    {
-      title: 'Payment Info',
-      url: '/folder/payment-info',
-      icon: 'information-circle-outline',
-    },
-    { title: 'Logout', url: '/folder/logout', icon: 'log-out-outline' },
-  ];
 
   accordionList: any[] = [
     {
@@ -47,8 +33,7 @@ export class AppComponent {
     public router: Router,
     public alertService: AlertService,
     public commonService: CommonService,
-    private menu: MenuController,
-    private httpService: HttpService
+    private menu: MenuController
   ) {
     this.platform.backButton.subscribeWithPriority(10, async (res) => {
       console.log('res: ', res);
@@ -66,7 +51,7 @@ export class AppComponent {
       if (!this.commonService.userData) return;
 
       if (
-        this._location.isCurrentPathEqualTo('/folder/home') ||
+        this._location.isCurrentPathEqualTo('/home') ||
         this._location.isCurrentPathEqualTo('')
       ) {
         console.log('64');
@@ -136,6 +121,14 @@ export class AppComponent {
       this.logout();
     } else if (p.url == '/about-us') {
       this.router.navigate(['/about-us']);
+    } else if (p.url == '/signup') {
+      if (p.title == 'Login') {
+        this.router.navigate(['signup'], {
+          queryParams: { isUserLoggedin: '' },
+        });
+      } else {
+        this.router.navigate(['signup']);
+      }
     }
     setTimeout(() => {
       this.getSelectedIndex();
@@ -145,7 +138,7 @@ export class AppComponent {
   getSelectedIndex() {
     const path = window.location.pathname.split('folder/')[1];
     if (path) {
-      this.alertService.selectedIndex = this.appPages.findIndex(
+      this.alertService.selectedIndex = this.commonService.appPages.findIndex(
         (page) => page.url.toLowerCase() === `/folder/${path.toLowerCase()}`
       );
     } else {
@@ -166,6 +159,16 @@ export class AppComponent {
     await this.getUserDataFromStorage();
     if (!this.commonService.userData) {
       this.router.navigate(['']);
+    }
+
+    if (!this.commonService.userData) {
+      this.commonService.appPages = this.commonService.cloneAppPages.filter((ele) => {
+        return ele.title != 'Download' && ele.title != 'Logout';
+      });
+    } else {
+      this.commonService.appPages = this.commonService.cloneAppPages.filter((ele) => {
+        return ele.title != 'Login' && ele.title != 'Signup';
+      });
     }
   }
 

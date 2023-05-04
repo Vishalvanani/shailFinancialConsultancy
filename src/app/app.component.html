@@ -1,23 +1,23 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay" *ngIf="commonService.userData">
+    <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <div>
           <ion-item class="profilebox">
             <img src="https://ionicframework.com/docs/img/demos/card-media.png" class="avtarImg" alt="">
-            <ion-label>{{commonService.userData.name}}</ion-label>
+            <ion-label *ngIf="commonService?.userData?.name">{{commonService.userData.name}}</ion-label>
           </ion-item>
         </div>
         <ion-list id="inbox-list" style="padding: 0px !important;border-bottom: 0px !important;">
           <ion-menu-toggle auto-hide="false">
-            <ion-item (click)="selectIndex(appPages[0])" routerDirection="root" lines="none" detail="false"
+            <ion-item (click)="selectIndex(commonService.appPages[0])" routerDirection="root" lines="none" detail="false"
               [class.selected]="alertService.selectedIndex == 0">
-              <ion-icon [name]="appPages[0].icon" style="width: 24px;margin-right: 25px;"></ion-icon>
-              <ion-label class="side-menu-title">{{ appPages[0].title }}</ion-label>
+              <ion-icon [name]="commonService.appPages[0].icon" style="width: 24px;margin-right: 25px;"></ion-icon>
+              <ion-label class="side-menu-title">{{ commonService.appPages[0].title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-accordion-group>
+          <ion-accordion-group *ngIf="commonService && commonService.userData">
             <ion-accordion value="profile">
               <ion-item slot="header" color="light" class="profilebox">
                 <ion-icon name="person" style="width: 24px;margin-right: 25px;"></ion-icon>
@@ -34,7 +34,7 @@
           </ion-accordion-group>
 
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of commonService.appPages; let i = index">
             <ng-container *ngIf="i > 0">
               <ion-item (click)="selectIndex(p)" routerDirection="root" lines="none" detail="false"
                 [class.selected]="alertService.selectedIndex == i">

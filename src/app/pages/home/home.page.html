@@ -11,7 +11,7 @@
 
  <ion-grid>
    <ion-row>
-     <ion-col size="6" *ngFor="let item of mainPageCategory">
+     <ion-col size="6" *ngFor="let item of commonService.mainPageCategory">
        <div class="main-card" (click)="openPage(item)">
          <img [src]="item.icon">
         </div>
