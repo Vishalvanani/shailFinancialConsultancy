@@ -38,7 +38,7 @@ export class AppComponent {
     this.platform.backButton.subscribeWithPriority(10, async (res) => {
       console.log('res: ', res);
       await this.getUserDataFromStorage();
-
+      console.log("path =>", this._location.path());
       if (
         this._location.isCurrentPathEqualTo('/signup') &&
         !this.commonService.userData
@@ -86,8 +86,7 @@ export class AppComponent {
           {
             text: 'Exit',
             handler: () => {
-              let navigator: any;
-              navigator['app'].exitApp();
+              (navigator as any).app.exitApp();
             },
           },
         ],
